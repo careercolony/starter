@@ -1,0 +1,299 @@
+<div class="page-container login-container">
+
+  <!-- Page content -->
+      <div class="page-content" >
+  
+        <!-- Main content -->
+        <div class="content-wrapper" >
+  
+          <!-- Wizard with validation -->
+          <div class="panel panel-info login-form width-500" >
+            
+            <div class="panel-heading">
+              <h6 class="panel-title">Congrats <b *ngIf="firstname">{{firstname}}</b>, Get off a great start in 3 easy steps</h6>
+              <div class="heading-elements"></div>
+            </div>            
+            <form (ngSubmit)="signupSteps(signupStepsForm.value)" [formGroup]="signupStepsForm">
+              <button id="signupStepsFormSubmitButton" type="submit" style="display: None;"></button>
+            <form-wizard>
+              <wizard-step [title]="'Step1'" (onNext)="onStep1Next($event)" formGroupName="step1" [isValid]="checkValidity('step1', signupStepsForm.controls.step1)">
+                <h6 class="form-wizard-title text-semibold">
+                  <span class="form-wizard-count">1</span>
+                  Your location
+                  <small class="display-block">Let's match you  with jobs, news, people near you</small>
+                </h6>
+  
+                <div class="row">
+                  <div class="col-md-12">
+
+                    <div class="form-group" >
+                      <fieldset id="address-block" formGroupName="address">
+                          <label>Address: <span class="text-danger">*</span></label>
+                          <div class="form-group">
+                            <label>City: </label>
+                            <input type="text" formControlName="city" class="form-control border-teal">
+                          </div>
+                          <div class="form-group">
+                            <label>State: </label>
+                            <input type="text" formControlName="state" class="form-control border-teal">
+                          </div>
+                      </fieldset>
+                    </div>
+                    
+                    <div class="form-group" >
+                      <label>Select country: <span class="text-danger">*</span></label>
+                      
+                      <select name="country" formControlName="country" data-placeholder="Choose an option..." class="form-control border-teal required">
+                        <!-- <option [selected] = "country">{{country}}</option> -->
+                        <option *ngFor="let country of countrylist" [selected] = "country.name.common === userCountry">{{country.name.common}}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label>Postal Code: </label>
+                      <input type="text" formControlName="postCode" class="form-control border-teal" placeholder="{{postCode}} (optional)">
+                    </div>
+                  </div>
+  
+                </div>
+            </wizard-step>
+            <wizard-step [title]="'Step2'" (onNext)="onStep2Next($event)" formGroupName="step2" [isValid]="checkValidity('step2', signupStepsForm.controls.step2)">
+                <h6 class="form-wizard-title text-semibold">
+                  <span class="form-wizard-count">2</span>
+                  Your Current Status
+                  <small class="display-block">Tell us about your current employment status.</small>
+                </h6>
+  
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label>What is your current employment status: <span class="text-danger">*</span></label>
+                      
+                      <select #employmentstatus  formControlName="employmentstatus" (change)="getFields(employmentstatus.value)" data-placeholder="Choose an option..." class="form-control border-teal required">
+                        <option value = 1>Employee</option>
+                        <option value = 2>Enterpreneur</option>
+                        <option value = 3>Senior Executive</option>
+                        <option value = 4>Freelancer</option>
+                        <option value = 5>Unemployed</option>
+                        <option value = 6>University / High School Student</option> 
+                      </select>
+                    </div>
+                  </div>
+                </div>
+  
+                <div class="row">
+                
+                  <div *ngIf="isEmployee;then employer else other_content">here is ignored</div>
+  
+                    <ng-template #employer>
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label>Your current employer <span class="text-danger">*</span></label>
+                          <input type="text" autocomplete="off" (input) = "searchCompanies($event.target.value)"  formControlName="employer_name" value="" class="form-control border-teal typeahead-scrollable-menu required" placeholder="">
+                          <input type="text" (keyup)="search($event)" placeholder="type somethingssss" class="input form-control">
+                          <div  style="margin-top:20px"  class="col-md-2">
+                            <ul class="media-list media-list-linked pb-2">
+                        
+                                <li class="media" *ngFor="let detailsSource of detailsSources">
+                                  <a href="#" class="media-link" style="position:relative;top:-15px; bottom:-25px">
+                                    <div class="media-left"><img src="assets/images/16.jpg" class="img-square img-md" alt=""></div>
+                                    <div class="media-body">
+                                      <span class="media-heading text-semibold">{{detailsSource._source.company_name}}</span>
+                                    </div>
+                                    <div class="media-right media-middle">
+                                      <span class="status-mark bg-success"></span>
+                                    </div>
+                                  </a>
+                                </li>
+                            </ul>
+                          </div>
+                        </div>
+                        
+                      </div>
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label>Your position <span class="text-danger">*</span></label>
+                          <input type="text" autocomplete="off"  (input) = "searchPosition($event.target.value)" formControlName="position" value="" class="form-control border-teal required typeahead-scrollable-menu" placeholder="">
+                        </div>
+                      </div>
+                    </ng-template>
+                    <ng-template #other_content></ng-template>
+                    <div *ngIf="isEnterpreneur;then enterpreneur else other_content">here is ignored</div>
+                    <ng-template #enterpreneur>
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label>Your company name  <span class="text-danger">*</span></label>
+                          <input type="text" autocomplete="off"  (input) = "searchCompanies($event.target.value)" formControlName="employer_name" value="" class="form-control border-teal required" placeholder="">
+                          <div  style="margin-top:20px"  class="col-md-2">
+                            <ul class="media-list media-list-linked pb-2">
+                        
+                                <li class="media" *ngFor="let detailsSource of detailsSources">
+                                  <a href="#" class="media-link" style="position:relative;top:-15px; bottom:-25px">
+                                    <div class="media-left"><img src="assets/images/16.jpg" class="img-square img-md" alt=""></div>
+                                    <div class="media-body">
+                                      <span class="media-heading text-semibold">{{detailsSource._source.company_name}}</span>
+                                    </div>
+                                    <div class="media-right media-middle">
+                                      <span class="status-mark bg-success"></span>
+                                    </div>
+                                  </a>
+                                </li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div><script type="text/javascript" src="assets/js/pages/wizard_form.js"></script>
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label>Your title <span class="text-danger">*</span></label>
+                          <input type="text" autocomplete="off"  (input) = "searchPosition($event.target.value)" formControlName="position" value="" class="form-control border-teal required" placeholder="eg: Founder, Co-Founder ....">
+                        </div>
+                      </div>
+                      
+                    </ng-template>
+                    <ng-template #other_content></ng-template>
+  
+                    <div *ngIf="isExecutive;then executive else other_content">here is ignored</div>
+                    <ng-template #executive>
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label>Your employer  <span class="text-danger">*</span></label>
+                          <input type="text" autocomplete="off"  (input) = "searchCompanies($event.target.value)" formControlName="employer_name" value="" class="form-control border-teal required" placeholder="">
+                          <input type="text" (keyup)="search($event)" placeholder="type somethingssss" class="input form-control">
+                          <div  style="margin-top:20px"  class="col-md-2">
+                            <ul class="media-list media-list-linked pb-2">
+                        
+                                <li class="media" *ngFor="let detailsSource of detailsSources">
+                                  <a href="#" class="media-link" style="position:relative;top:-15px; bottom:-25px">
+                                    <div class="media-left"><img src="assets/images/16.jpg" class="img-square img-md" alt=""></div>
+                                    <div class="media-body">
+                                      <span class="media-heading text-semibold">{{detailsSource._source.company_name}}</span>
+                                    </div>
+                                    <div class="media-right media-middle">
+                                      <span class="status-mark bg-success"></span>
+                                    </div>
+                                  </a>
+                                </li>
+                            </ul>
+                          </div>
+                          
+                        </div>
+                      </div>
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label>Your position <span class="text-danger">*</span></label>
+                          <input type="text" autocomplete="off"  (input) = "searchPosition($event.target.value)" formControlName="position" value="" class="form-control border-teal required" placeholder="eg:Founder, Co-Founder ....">
+                        </div>
+                      </div>
+                      
+                    </ng-template>
+                    <ng-template #other_content></ng-template>
+                    
+                    <div *ngIf="isFreelancer;then freelancer else other_content">here is ignored</div>
+                    <ng-template #freelancer>
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label>Your career title <span class="text-danger">*</span></label>
+                          <input type="text" autocomplete="off"  formControlName="position" value="" class="form-control border-teal required" placeholder="eg: Software Developer  ....">
+                        </div>
+                      </div>
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label>Your Industry: </label>
+                          <select formControlName="industry" data-placeholder="Choose an option..." class="form-control border-teal required">
+                            <option  *ngFor='let industry of industrylist' value ='{{industry}}'>{{industry}}</option> 
+                          </select>
+                        </div>
+                      </div>
+                      
+                    </ng-template>
+                    <ng-template #other_content></ng-template>
+  
+                    <div *ngIf="isUnemployed;then unemployed else other_content">here is ignored</div>
+                    <ng-template #unemployed>
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label>Your previous employer</label>
+                          <input type="text" id="employer_name" autocomplete="off" list="companies"  (input) = "searchCompanies($event.target.value)" formControlName="employer_name" value="" class="form-control border-teal" placeholder="Leave blank if never employeed">
+                        </div>
+                        
+                      </div>
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label>Your position</label>
+                          <input type="text" autocomplete="off"  (input) = "searchPosition($event.target.value)"  formControlName="position" value="" class="form-control border-teal select" placeholder="Leave blank if never employeed">
+                        </div>
+                      </div>
+                      
+                    </ng-template>
+                    <ng-template #other_content></ng-template>
+  
+                    <div *ngIf="isStudent;then student else other_content">here is ignored</div>
+                    <ng-template #student>
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label>Colledge / University  <span class="text-danger">*</span></label>
+                          <input type="text" autocomplete="off" formControlName="school_name" value="" class="form-control border-teal required" placeholder="">
+                        </div>
+                      </div>
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label>Degree in view <span class="text-danger">*</span></label>
+                          <input type="text" autocomplete="off" formControlName="degree" value="" class="form-control border-teal required" placeholder="">
+                        </div>
+                      </div>
+                      
+                    </ng-template>
+                    <ng-template #other_content></ng-template>
+                  
+                    <div class="col-md-12" *ngIf="searchIsEmpty"> wizard
+                        <div class="form-group">
+                          <label>Your Industry: </label>
+                          <select formControlName="industry" data-placeholder="Choose an option..." class="form-control border-teal required">
+                    
+                            <option  *ngFor='let industry of industrylist' value ='{{industry}}'>{{industry}}</option> 
+                            
+                          </select>
+                        </div>
+                    </div>
+                    <div class="col-md-12" *ngIf="!searchIsEmpty"></div>
+                </div>
+            </wizard-step>
+            <wizard-step [title]="'Step3'" (onComplete)="onComplete($event)" formGroupName="step3" [isValid]="checkValidity('step3', signupStepsForm.controls.step3)">
+                <h6 class="form-wizard-title text-semibold">
+                  <span class="form-wizard-count">3</span>
+                  Employment Details
+                  <small class="display-block">Tell us about your current employment status.</small>
+                </h6>
+  
+                <div class="row">
+                  
+                  <div class="col-md-12">
+                    <div class="form-group" >
+                      
+                      <select formControlName="my_interest_on_colony" data-placeholder="Choose an option..." class="form-control border-teal required">
+                        <option  value ="employment">Employement</option>  
+                        <option  value ="recruitment">Recruitment</option> 
+                        <option  value ="advertisement">Advertisement</option>
+                        <option  value ="business">Business</option> 
+                        <option  value ="investment">Investment</option>  
+                      </select>
+                    </div>
+                  </div>
+  
+                </div>
+            </wizard-step>
+          </form-wizard>
+          </form>
+        </div>
+          <!-- /wizard with validation -->
+
+          </div>
+        <!-- /main content -->
+      </div>
+      <!-- /page content -->
+  
+    </div>
+    <!-- /page container -->
+  
+  

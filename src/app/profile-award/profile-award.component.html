@@ -1,0 +1,195 @@
+<div class="panel panel-white">
+    <div class="panel-heading">
+      <h6 class="panel-title">My awards and honours</h6>
+      <div class="heading-elements">
+          <button type="button" data-toggle="modal" (click)="initAddAwardModal()" data-target="#modal_theme_add_award" data-popup="tooltip" data-placement="top" title="Add new" class="btn border-teal text-teal btn-flat btn-rounded btn-icon btn-xs"><i class="icon-plus2"></i></button>	&nbsp;&nbsp;										
+        </div>
+      </div>
+  
+      <ul class="media-list">		
+        <li *ngFor="let award of awardList" class="media panel-body stack-media-on-mobile">
+          <div class="media-left">
+          </div>
+          
+          <div class="media-body">
+            <h6 class="media-heading text-semibold">{{award.award_title}}
+            &nbsp;&nbsp; <i data-toggle="modal" (click)="prepareUpdateModal(award)" data-target="#modal_theme_update_award" class="icon-pencil5 position-left" style="cursor: pointer; size:50px"></i>
+            &nbsp;&nbsp; <i data-toggle="modal" (click)="prepareDeleteModal(award)" data-target="#modal_theme_delete_award" class="icon-bin position-left" style="cursor: pointer; size:50px"></i>
+              <span class="media-annotation pull-right">Received on: {{award.month}} {{award.year}}</span>
+            </h6>
+            <span><strong>Issued By: {{award.issuer}}</strong></span>
+            <ul class="list-inline list-inline-separate text-muted mb-5">
+              <!-- <li><i class="icon-book-play position-left"></i> Video tutorials</li> -->
+              <!-- <li>Created: {{experience.created_date}}</li> -->
+              <li>Updated: {{award.updated_date | relativeTime}}</li>
+            </ul>
+            {{award.description}}
+          </div>
+        </li>
+    
+    <!-- add award modal -->
+    <div id="modal_theme_add_award" class="modal fade">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <form [formGroup]="addAwardForm" (ngSubmit)="addAward(addAwardForm.value)">
+            <div class="modal-header bg-info">
+              <button id="addAwardModalDismissButton" type="button" class="close" data-dismiss="modal">&times;</button>
+              <h6 class="modal-title">Add Award</h6>
+            </div>
+    
+            <div class="modal-body">
+              <span *ngIf="error" class="help-block text-danger"><i class="icon-cancel-circle2 position-left"></i>{{error}}</span>
+              <span *ngIf="message" class="help-block text-success"><i class="icon-checkmark position-left"></i>{{message}}</span>
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-sm-12">
+                    <label class="text-semibold">Award Title</label>
+                    <input type="text" class="form-control" formControlName="award_title">
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-sm-4">
+                    <label class="text-semibold">Received on</label>
+                    <select class="form-control" formControlName="month">
+                      <option *ngFor="let month of monthList" [selected]="month == startMonth">{{month}}</option>
+                    </select>
+                  </div>
+                  <div class="col-sm-2">
+                    <label class="text-semibold">&nbsp;</label>
+                    <input type="number" class="form-control" min="1900" max="2099" step="1" formControlName="year"/>
+                  </div>
+                  <div class="col-sm-6">
+                      <div class="form-group">
+                          <label class="text-semibold">Issuer</label>
+                          <input type="text" class="form-control" formControlName="issuer">
+                      </div>				
+                    </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-sm-12">
+                    <label class="text-semibold">Description</label>
+                    <textarea name="description" class="form-control mb-15" rows="3"  placeholder="Type your award description here" formControlName="description"></textarea>
+                  </div>  
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-info" [disabled]="!addAwardForm.valid || isAddAwardFormSubmitted">
+                <span *ngIf="!isAddAwardFormSubmitted;else show_saving_changes">
+                  Save Changes
+                </span>
+                <ng-template #show_saving_changes>Saving Changes. Please wait...</ng-template>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- /add award modal -->
+        
+    
+    <!-- update award modal -->
+    <div id="modal_theme_update_award" class="modal fade">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <form [formGroup]="updateAwardForm" (ngSubmit)="updateAward(updateAwardForm.value)">
+            <input type="hidden" formControlName="awID"/>
+            <input type="hidden" formControlName="created_date"/>
+            <div class="modal-header bg-info">
+              <button id="updateAwardModalDismissButton" type="button" class="close" data-dismiss="modal">&times;</button>
+              <h6 class="modal-title">Edit Award</h6>
+            </div>
+      
+            <div class="modal-body">
+                <span *ngIf="error" class="help-block text-danger"><i class="icon-cancel-circle2 position-left"></i>{{error}}</span>
+                <span *ngIf="message" class="help-block text-success"><i class="icon-checkmark position-left"></i>{{message}}</span>
+                <div class="form-group">
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <label class="text-semibold">Award Title</label>
+                      <input type="text" class="form-control" formControlName="award_title">
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="row">
+                    <div class="col-sm-4">
+                      <label class="text-semibold">Received on</label>
+                      <select class="form-control" formControlName="month">
+                        <option *ngFor="let month of monthList" [selected]="month == startMonth">{{month}}</option>
+                      </select>
+                    </div>
+                    <div class="col-sm-2">
+                      <label class="text-semibold">&nbsp;</label>
+                      <input type="number" class="form-control" min="1900" max="2099" step="1" formControlName="year"/>
+                    </div>
+
+                  <div class="col-sm-6">
+                      <div class="form-group">
+                          <label class="text-semibold">Issuer</label>
+                          <input type="text" class="form-control" formControlName="issuer">
+                      </div>				
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <label class="text-semibold">Description</label>
+                      <textarea name="description" class="form-control mb-15" rows="3"  placeholder="Type your award description here" formControlName="description"></textarea>
+                    </div>  
+                  </div>
+                </div>
+              </div>
+      
+            <div class="modal-footer">
+              <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-info" [disabled]="!updateAwardForm.valid || isUpdateAwardFormSubmitted">
+                <span *ngIf="!isUpdateAwardFormSubmitted;else show_updating_changes">
+                  Save Changes
+                </span>
+                <ng-template #show_updating_changes>Saving Changes. Please wait...</ng-template>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- /update award modal -->
+    
+    <!-- delete award modal -->
+    <div id="modal_theme_delete_award" class="modal fade">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <form [formGroup]="deleteAwardForm" (ngSubmit)="deleteAward(deleteAwardForm.value)">
+            <input type="hidden" formControlName="awID"/>
+            <div class="modal-header bg-info">
+              <button id="deleteAwardModalDismissButton" type="button" class="close" data-dismiss="modal">&times;</button>
+              <h6 class="modal-title">Delete Award</h6>
+            </div>
+        
+            <div class="modal-body">
+              <span *ngIf="error" class="help-block text-danger"><i class="icon-cancel-circle2 position-left"></i>{{error}}</span>
+              <span *ngIf="message" class="help-block text-success"><i class="icon-checkmark position-left"></i>{{message}}</span>
+              <h5>Are you sure you want to delete this award ?</h5>
+            </div>
+        
+            <div class="modal-footer">
+              <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-info" [disabled]="!deleteAwardForm.valid || isDeleteAwardFormSubmitted">
+                <span *ngIf="!isDeleteAwardFormSubmitted;else show_deleting">
+                  Delete
+                </span>
+                <ng-template #show_deleting>Deleting. Please wait...</ng-template>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- /delete award modal -->

@@ -1,0 +1,169 @@
+<div class="panel panel-white">
+    <div class="panel-heading">
+      <h6 class="panel-title">My Portfolio</h6>
+      <div class="heading-elements">
+        &nbsp;&nbsp; <button type="button" data-toggle="modal" (click)="setMediaType('photo')" data-target="#modal_theme_add_portfolio" data-popup="tooltip" title="Upload Photo" class="btn border-teal text-teal btn-rounded btn-icon btn-xs"><i class="icon-image2"></i></button> &nbsp;&nbsp;
+        <button type="button" data-toggle="modal" (click)="setMediaType('video')" data-target="#modal_theme_add_portfolio" data-popup="tooltip" title="Upload Video" class="btn border-teal text-teal btn-rounded btn-icon btn-xs"><i class="icon-video-camera2"></i></button> &nbsp;&nbsp;
+        <button type="button" data-toggle="modal" (click)="setMediaType('pdf')" data-target="#modal_theme_add_portfolio" data-popup="tooltip" title="Upload PDF" class="btn border-teal text-teal btn-rounded btn-icon btn-xs"><i class="icon-file-text3"></i></button>
+      </div>
+    </div>
+    
+    <div *ngIf="portfolioList.length == 0 && loadComplete" class="panel-body">
+			<div class="caption text-center" style="min-height:350px; padding-top:50px">
+				<img src="assets/images/flat-icons/businessmen-having-a-meeting.png" style="width:130px" alt="">
+				<h1 class="text-thin no-margin">Your portfolio is currently empty</h1>
+				<p class="text-muted mb-15 mt-5">Show your profile visitors what you can do. Add video, photos and file of your past projects</p>
+			</div>
+		</div>
+		<div *ngIf="portfolioList.length != 0 && loadComplete" class="panel-body">
+			<ul class="media-list">		
+				<li *ngFor="let portfolio of portfolioList" class="media panel-body stack-media-on-mobile">
+					<div class="media-body">
+						<h6 class="media-heading text-semibold">{{portfolio.media_title}}
+						&nbsp;&nbsp; <i data-toggle="modal" (click)="prepareUpdateModal(portfolio)" data-target="#modal_theme_update_portfolio" class="icon-pencil5 position-left" style="cursor: pointer; size:50px"></i>
+						&nbsp;&nbsp; <i data-toggle="modal" (click)="prepareDeleteModal(portfolio)" data-target="#modal_theme_delete_portfolio" class="icon-bin position-left" style="cursor: pointer; size:50px"></i>
+						</h6>
+						<span><strong>{{portfolio.media_description}}</strong></span><br/>
+						<img [src]="portfolio.media" alt="">
+					</div>
+				</li>
+			</ul>
+		</div>
+</div>
+
+    <!-- add portfolio modal -->
+    <div id="modal_theme_add_portfolio" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+			<form [formGroup]="addPortfolioForm" (ngSubmit)="addPortfolio(addPortfolioForm.value)">
+				<input type="hidden" formControlName="media_type"/>  
+				<div class="modal-header bg-info">
+					<button id="addPortfolioModalDismissButton" type="button" class="close" data-dismiss="modal">&times;</button>
+					<h6 class="modal-title">Add Portfolio</h6>
+				</div>
+				  <div class="modal-body">
+					<span *ngIf="error" class="help-block text-danger"><i class="icon-cancel-circle2 position-left"></i>{{error}}</span>
+					<span *ngIf="message" class="help-block text-success"><i class="icon-checkmark position-left"></i>{{message}}</span>
+					<div class="form-group">
+					  <div class="row">
+						<div class="col-sm-12">
+						  <label class="text-semibold">Title</label>
+						  <input type="text" class="form-control" formControlName="media_title">
+						</div>
+					</div>
+					</div>
+					<div class="form-group">
+					<div class="row">
+						<div class="col-sm-12">
+							<label class="text-semibold">Description</label>
+							<textarea name="media_description" class="form-control mb-15" rows="3"  placeholder="Type your portfolio description here" formControlName="media_description"></textarea>
+						</div>
+					  </div>
+					  <div class="row">
+							<div class="col-sm-12">
+								<label class="text-semibold">{{selectedMediaType | capitalize}}</label>
+								<input type="text" class="form-control" formControlName="media">
+							</div>
+						</div>
+					</div>
+				  </div>
+				  <div class="modal-footer">
+					<button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+					<button type="submit" class="btn btn-info" [disabled]="!addPortfolioForm.valid || isAddPortfolioFormSubmitted">
+					  <span *ngIf="!isAddPortfolioFormSubmitted;else show_saving_changes">
+						Save Changes
+					  </span>
+					  <ng-template #show_saving_changes>Saving Changes. Please wait...</ng-template>
+					</button>
+				  </div>
+				</form>
+			  </div>
+			</div>
+		  </div>
+		  <!-- /add portfolio modal -->
+			  
+		  
+		  <!-- update portfolio modal -->
+		  <div id="modal_theme_update_portfolio" class="modal fade">
+			<div class="modal-dialog">
+			  <div class="modal-content">
+				<form [formGroup]="updatePortfolioForm" (ngSubmit)="updatePortfolio(updatePortfolioForm.value)">
+				  <input type="hidden" formControlName="mediaID"/>
+				  <input type="hidden" formControlName="media_type"/>
+				  <div class="modal-header bg-info">
+					<button id="updatePortfolioModalDismissButton" type="button" class="close" data-dismiss="modal">&times;</button>
+					<h6 class="modal-title">Edit Portfolio</h6>
+				  </div>
+			
+				  <div class="modal-body">
+						<span *ngIf="error" class="help-block text-danger"><i class="icon-cancel-circle2 position-left"></i>{{error}}</span>
+						<span *ngIf="message" class="help-block text-success"><i class="icon-checkmark position-left"></i>{{message}}</span>
+						<div class="form-group">
+						  <div class="row">
+							<div class="col-sm-12">
+							  <label class="text-semibold">Title</label>
+							  <input type="text" class="form-control" formControlName="media_title">
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-12">
+								<label class="text-semibold">Description</label>
+								<textarea name="media_description" class="form-control mb-15" rows="3"  placeholder="Type your portfolio description here" formControlName="media_description"></textarea>
+							</div>
+						  </div>
+						  <div class="row">
+								<div class="col-sm-12">
+									<label class="text-semibold">{{selectedMediaType}}</label>
+									<input type="text" class="form-control" formControlName="media">
+								</div>
+							  </div>
+						</div>
+					  </div>
+			
+				  <div class="modal-footer">
+					<button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+					<button type="submit" class="btn btn-info" [disabled]="!updatePortfolioForm.valid || isUpdatePortfolioFormSubmitted">
+					  <span *ngIf="!isUpdatePortfolioFormSubmitted;else show_updating_changes">
+						Save Changes
+					  </span>
+					  <ng-template #show_updating_changes>Saving Changes. Please wait...</ng-template>
+					</button>
+				  </div>
+				</form>
+			  </div>
+			</div>
+		  </div>
+		  <!-- /update portfolio modal -->
+		  
+		  <!-- delete portfolio modal -->
+		  <div id="modal_theme_delete_portfolio" class="modal fade">
+			<div class="modal-dialog">
+			  <div class="modal-content">
+				<form [formGroup]="deletePortfolioForm" (ngSubmit)="deletePortfolio(deletePortfolioForm.value)">
+				  <input type="hidden" formControlName="mediaID"/>
+				  <div class="modal-header bg-info">
+					<button id="deletePortfolioModalDismissButton" type="button" class="close" data-dismiss="modal">&times;</button>
+					<h6 class="modal-title">Delete Portfolio</h6>
+				  </div>
+			  
+				  <div class="modal-body">
+					<span *ngIf="error" class="help-block text-danger"><i class="icon-cancel-circle2 position-left"></i>{{error}}</span>
+					<span *ngIf="message" class="help-block text-success"><i class="icon-checkmark position-left"></i>{{message}}</span>
+					<h5>Are you sure you want to delete this portfolio ?</h5>
+				  </div>
+			  
+				  <div class="modal-footer">
+					<button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+					<button type="submit" class="btn btn-info" [disabled]="!deletePortfolioForm.valid || isDeletePortfolioFormSubmitted">
+					  <span *ngIf="!isDeletePortfolioFormSubmitted;else show_deleting">
+						Delete
+					  </span>
+					  <ng-template #show_deleting>Deleting. Please wait...</ng-template>
+					</button>
+				  </div>
+				</form>
+			  </div>
+			</div>
+		  </div>
+		  <!-- /delete portfolio modal -->
+	  

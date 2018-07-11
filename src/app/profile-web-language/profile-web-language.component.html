@@ -1,0 +1,143 @@
+<div class="panel panel-white">
+    <div class="panel-heading">
+      <h6 class="panel-title">Language</h6>
+      <div class="heading-elements">
+          <button type="button" data-toggle="modal" (click)="initAddLanguageModal()" data-target="#modal_theme_add_language" data-popup="tooltip" data-placement="top" title="Add new" class="btn border-teal text-teal btn-flat btn-rounded btn-icon btn-xs"><i class="icon-plus2"></i></button>	&nbsp;&nbsp;										
+        </div>
+      </div>
+  
+      <ul class="media-list">		
+        <li *ngFor="let language of languageList" class="media panel-body stack-media-on-mobile">
+          <div class="media-left">
+          </div>
+          
+          <div class="media-body">
+            <h6 class="media-heading text-semibold">{{language.language}}
+            &nbsp;&nbsp; <i data-toggle="modal" (click)="prepareUpdateModal(language)" data-target="#modal_theme_update_language" class="icon-pencil5 position-left" style="cursor: pointer; size:50px"></i>
+            &nbsp;&nbsp; <i data-toggle="modal" (click)="prepareDeleteModal(language)" data-target="#modal_theme_delete_language" class="icon-bin position-left" style="cursor: pointer; size:50px"></i>
+            </h6>
+            <span><strong>Fluency: {{language.fluency}}</strong></span>
+          </div>
+        </li>
+    
+    <!-- add language modal -->
+    <div id="modal_theme_add_language" class="modal fade">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <form [formGroup]="addLanguageForm" (ngSubmit)="addLanguage(addLanguageForm.value)">
+            <div class="modal-header bg-info">
+              <button id="addLanguageModalDismissButton" type="button" class="close" data-dismiss="modal">&times;</button>
+              <h6 class="modal-title">Add Language</h6>
+            </div>
+    
+            <div class="modal-body">
+              <span *ngIf="error" class="help-block text-danger"><i class="icon-cancel-circle2 position-left"></i>{{error}}</span>
+              <span *ngIf="message" class="help-block text-success"><i class="icon-checkmark position-left"></i>{{message}}</span>
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-sm-6">
+                    <label class="text-semibold">Language</label>
+                    <input type="text" class="form-control" formControlName="language">
+                  </div>
+                  <div class="col-sm-6">
+                      <label class="text-semibold">Fluency</label>
+                      <select class="form-control" formControlName="fluency">
+                        <option *ngFor="let fluency of fluencyList" [selected]="fluency == selectedFluency">{{fluency}}</option>
+                      </select>
+                    </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-info" [disabled]="!addLanguageForm.valid || isAddLanguageFormSubmitted">
+                <span *ngIf="!isAddLanguageFormSubmitted;else show_saving_changes">
+                  Save Changes
+                </span>
+                <ng-template #show_saving_changes>Saving Changes. Please wait...</ng-template>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- /add language modal -->
+        
+    
+    <!-- update language modal -->
+    <div id="modal_theme_update_language" class="modal fade">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <form [formGroup]="updateLanguageForm" (ngSubmit)="updateLanguage(updateLanguageForm.value)">
+            <input type="hidden" formControlName="langID"/>
+            <input type="hidden" formControlName="created_date"/>
+            <div class="modal-header bg-info">
+              <button id="updateLanguageModalDismissButton" type="button" class="close" data-dismiss="modal">&times;</button>
+              <h6 class="modal-title">Edit Language</h6>
+            </div>
+      
+            <div class="modal-body">
+                <span *ngIf="error" class="help-block text-danger"><i class="icon-cancel-circle2 position-left"></i>{{error}}</span>
+                <span *ngIf="message" class="help-block text-success"><i class="icon-checkmark position-left"></i>{{message}}</span>
+                <div class="form-group">
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <label class="text-semibold">Language</label>
+                      <input type="text" class="form-control" formControlName="language">
+                    </div>
+                    <div class="col-sm-6">
+                        <label class="text-semibold">Fluency</label>
+                        <select class="form-control" formControlName="fluency">
+                          <option *ngFor="let fluency of fluencyList" [selected]="fluency == selectedFluency">{{fluency}}</option>
+                        </select>
+                      </div>
+                  </div>
+                </div>
+              </div>
+      
+            <div class="modal-footer">
+              <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-info" [disabled]="!updateLanguageForm.valid || isUpdateLanguageFormSubmitted">
+                <span *ngIf="!isUpdateLanguageFormSubmitted;else show_updating_changes">
+                  Save Changes
+                </span>
+                <ng-template #show_updating_changes>Saving Changes. Please wait...</ng-template>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- /update language modal -->
+    
+    <!-- delete language modal -->
+    <div id="modal_theme_delete_language" class="modal fade">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <form [formGroup]="deleteLanguageForm" (ngSubmit)="deleteLanguage(deleteLanguageForm.value)">
+            <input type="hidden" formControlName="langID"/>
+            <div class="modal-header bg-info">
+              <button id="deleteLanguageModalDismissButton" type="button" class="close" data-dismiss="modal">&times;</button>
+              <h6 class="modal-title">Delete Language</h6>
+            </div>
+        
+            <div class="modal-body">
+              <span *ngIf="error" class="help-block text-danger"><i class="icon-cancel-circle2 position-left"></i>{{error}}</span>
+              <span *ngIf="message" class="help-block text-success"><i class="icon-checkmark position-left"></i>{{message}}</span>
+              <h5>Are you sure you want to delete this language ?</h5>
+            </div>
+        
+            <div class="modal-footer">
+              <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-info" [disabled]="!deleteLanguageForm.valid || isDeleteLanguageFormSubmitted">
+                <span *ngIf="!isDeleteLanguageFormSubmitted;else show_deleting">
+                  Delete
+                </span>
+                <ng-template #show_deleting>Deleting. Please wait...</ng-template>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- /delete language modal -->

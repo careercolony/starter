@@ -1,0 +1,136 @@
+<div class="panel panel-white">
+    <div class="panel-heading">
+        <h6 class="panel-title">My other web profiles</h6>
+        <div class="heading-elements">
+                <button type="button" data-toggle="modal" (click)="initAddWebpModal()" data-target="#modal_theme_add_webp" data-popup="tooltip" data-placement="top" title="Add new" class="btn border-teal text-teal btn-flat btn-rounded btn-icon btn-xs"><i class="icon-plus2"></i></button>	&nbsp;&nbsp;										
+              </div>
+            </div>
+        
+            <ul class="media-list">		
+              <li *ngFor="let webp of webpList" class="media panel-body stack-media-on-mobile">
+                <div class="media-left">
+                </div>
+                
+                <div class="media-body">
+                  <h6 class="media-heading text-semibold"><a href="{{webp.profile_url}}">{{webp.profile_url}}</a>
+                  &nbsp;&nbsp; <i data-toggle="modal" (click)="prepareUpdateModal(webp)" data-target="#modal_theme_update_webp" class="icon-pencil5 position-left" style="cursor: pointer; size:50px"></i>
+                  &nbsp;&nbsp; <i data-toggle="modal" (click)="prepareDeleteModal(webp)" data-target="#modal_theme_delete_webp" class="icon-bin position-left" style="cursor: pointer; size:50px"></i>
+                  </h6>
+                  <ul class="list-inline list-inline-separate text-muted mb-5">
+                    <!-- <li><i class="icon-book-play position-left"></i> Video tutorials</li> -->
+                    <!-- <li>Created: {{experience.created_date}}</li> -->
+                    <li>Updated: {{webp.updated_date | relativeTime}}</li>
+                  </ul>
+                </div>
+              </li>
+          
+          <!-- add webp modal -->
+          <div id="modal_theme_add_webp" class="modal fade">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <form [formGroup]="addWebpForm" (ngSubmit)="addWebp(addWebpForm.value)">
+                  <div class="modal-header bg-info">
+                    <button id="addWebpModalDismissButton" type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h6 class="modal-title">Add Web Profile</h6>
+                  </div>
+          
+                  <div class="modal-body">
+                    <span *ngIf="error" class="help-block text-danger"><i class="icon-cancel-circle2 position-left"></i>{{error}}</span>
+                    <span *ngIf="message" class="help-block text-success"><i class="icon-checkmark position-left"></i>{{message}}</span>
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-sm-12">
+                          <label class="text-semibold">Web Profile URL</label>
+                          <input type="text" class="form-control" formControlName="profile_url">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-info" [disabled]="!addWebpForm.valid || isAddWebpFormSubmitted">
+                      <span *ngIf="!isAddWebpFormSubmitted;else show_saving_changes">
+                        Save Changes
+                      </span>
+                      <ng-template #show_saving_changes>Saving Changes. Please wait...</ng-template>
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <!-- /add webp modal -->
+              
+          
+          <!-- update webp modal -->
+          <div id="modal_theme_update_webp" class="modal fade">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <form [formGroup]="updateWebpForm" (ngSubmit)="updateWebp(updateWebpForm.value)">
+                  <input type="hidden" formControlName="webpID"/>
+                  <input type="hidden" formControlName="created_date"/>
+                  <div class="modal-header bg-info">
+                    <button id="updateWebpModalDismissButton" type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h6 class="modal-title">Edit Web Profile</h6>
+                  </div>
+            
+                  <div class="modal-body">
+                        <span *ngIf="error" class="help-block text-danger"><i class="icon-cancel-circle2 position-left"></i>{{error}}</span>
+                        <span *ngIf="message" class="help-block text-success"><i class="icon-checkmark position-left"></i>{{message}}</span>
+                        <div class="form-group">
+                          <div class="row">
+                            <div class="col-sm-12">
+                              <label class="text-semibold">Web Profile URL</label>
+                              <input type="text" class="form-control" formControlName="profile_url">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+            
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-info" [disabled]="!updateWebpForm.valid || isUpdateWebpFormSubmitted">
+                      <span *ngIf="!isUpdateWebpFormSubmitted;else show_updating_changes">
+                        Save Changes
+                      </span>
+                      <ng-template #show_updating_changes>Saving Changes. Please wait...</ng-template>
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <!-- /update webp modal -->
+          
+          <!-- delete webp modal -->
+          <div id="modal_theme_delete_webp" class="modal fade">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <form [formGroup]="deleteWebpForm" (ngSubmit)="deleteWebp(deleteWebpForm.value)">
+                  <input type="hidden" formControlName="webpID"/>
+                  <div class="modal-header bg-info">
+                    <button id="deleteWebpModalDismissButton" type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h6 class="modal-title">Delete Web Profile</h6>
+                  </div>
+              
+                  <div class="modal-body">
+                    <span *ngIf="error" class="help-block text-danger"><i class="icon-cancel-circle2 position-left"></i>{{error}}</span>
+                    <span *ngIf="message" class="help-block text-success"><i class="icon-checkmark position-left"></i>{{message}}</span>
+                    <h5>Are you sure you want to delete this web profile ?</h5>
+                  </div>
+              
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-info" [disabled]="!deleteWebpForm.valid || isDeleteWebpFormSubmitted">
+                      <span *ngIf="!isDeleteWebpFormSubmitted;else show_deleting">
+                        Delete
+                      </span>
+                      <ng-template #show_deleting>Deleting. Please wait...</ng-template>
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <!-- /delete webp modal -->
+      

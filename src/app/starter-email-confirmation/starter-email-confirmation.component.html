@@ -1,0 +1,7 @@
+<div>
+  <p *ngIf='!verification'>A verification link has been sent to your email <strong>{{email}}</strong>. Please click on the link to verify.</p>
+  <p *ngIf='verification'>{{emailVerificationStatus}}</p>
+  <p *ngIf='mailResent'>Verification mail has been resent</p>
+  <a (click)='resendVerificationEmail()'>Click here to resend the mail</a>
+  
+</div>

@@ -1,0 +1,445 @@
+	<!-- Page container -->
+	<div class="page-container" @page @imganimate>
+
+		<!-- Page content -->
+		<div class="page-content">
+
+			<!-- Main content -->
+			<div class="content-wrapper">
+
+
+				<!-- User profile -->
+				<div class="row">
+					<div class="col-lg-9"> 
+							&nbsp;&nbsp; <i data-toggle="modal" data-target="#modal_theme_update_headline" class="icon-pencil icon-1x text-teal-300 position-left" style="cursor: pointer; size:50px"></i>
+					
+
+			<!-- Cover area -->
+				<div class="profile-cover">
+					<div class="profile-cover-img" style="height:250px;">
+							<slim [options]="coverImageSlimOptions"></slim>
+					</div>
+					<div class="media">
+						<div class="media-left">
+							<div style="width: 120px; height: 120px">
+								<slim [options]="profileImageSlimOptions"></slim>
+							</div>
+							
+						</div>
+
+						<div class="media-body">
+				    		<h1>{{firstname}} {{lastname}}  <small class="display-block">UX/UI designer</small></h1>
+						</div>
+
+						<div class="media-right media-middle">
+							<ul class="list-inline list-inline-condensed no-margin-bottom text-nowrap">
+								<!-- <li><a href="#" class="btn btn-default"><i class="icon-file-picture position-left"></i> Cover image</a></li> -->
+							</ul>
+						</div>
+					</div>
+				</div>
+				<!-- /cover area -->
+
+
+				<!-- Toolbar -->
+				<div class="navbar navbar-default navbar-xs navbar-component no-border-radius-top">
+					<ul class="nav navbar-nav visible-xs-block">
+						<li class="full-width text-center"><a data-toggle="collapse" data-target="#navbar-filter"><i class="icon-menu7"></i></a></li>
+					</ul>
+
+					<div class="navbar-collapse collapse" id="navbar-filter">
+						<ul class="nav navbar-nav">
+							<li routerLinkActive="active current"><a [routerLink]="['/profile/experience']"><i class="icon-portfolio position-left"></i> Experience <span class="badge badge-success badge-inline position-right">{{experienceCount}}</span></a></li>
+							<li routerLinkActive="active current"><a [routerLink]="['/profile/education']"><i class="icon-graduation2 position-left"></i> Education </a></li>
+							<li routerLinkActive="active current"><a [routerLink]="['/profile/skills']"><i class="icon-scissors position-left"></i> Skills <span class="badge badge-info badge-inline position-right">{{skillCount}}</span> </a> </li>
+							<li routerLinkActive="active current"><a [routerLink]="['/profile/portfolio']"><i class="icon-folder position-left"></i> Portfolio</a></li>
+						</ul>
+
+						<div class="navbar-right navbar-collapse collapse" id="navbar-filter">
+							<ul class="nav navbar-nav">
+								<li class="dropdown">
+									<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-plus2 position-left"></i> Archievements<span class="visible-xs-inline-block position-right"> Options</span> <span class="caret"></span></a>
+									<ul class="dropdown-menu dropdown-menu-right">
+						
+										<li routerLinkActive="active current"><a [routerLink]="['/profile/certification']"><i class="icon-certificate"></i> Certifications</a></li>
+										<li routerLinkActive="active current"><a [routerLink]="['/profile/project']"><i class="icon-presentation"></i> Projects</a></li>
+										<li routerLinkActive="active current"><a [routerLink]="['/profile/award']"><i class="icon-trophy2"></i> Award & Honor</a></li>
+										<li routerLinkActive="active current"><a [routerLink]="['/profile/publication']"><i class="icon-clippy"></i> Publications</a></li>
+										<li class="divider"></li>
+										
+										<li routerLinkActive="active current"><a [routerLink]="['/profile/web-profile']"><i class="icon-file-media"></i> Web Profiles</a></li>
+										<li routerLinkActive="active current"><a [routerLink]="['/profile/language']"><i class="icon-cube"></i> Language</a></li>
+									</ul>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<!-- /toolbar -->
+				
+		
+						<div class="tabbable">
+														
+								<router-outlet></router-outlet>
+						</div>
+	</div>
+
+
+					
+						<div class="col-lg-3">
+            
+							<!-- Invitation stats white -->
+							<div class="panel text-center bg-grey-400 has-bg-image">
+									<div class="panel-body">
+										<h6 class="text-semibold no-margin-bottom mt-5">Profile Strength</h6>
+										<div class="opacity-75 content-group">Intermediate</div>
+										<div class="svg-center position-relative mb-5" id="progress_percentage_three"></div>
+									</div>
+		
+									<div class="panel-body panel-body-accent pb-15">
+										<div class="row">
+											<div class="col-xs-4">
+												<div class="text-uppercase text-size-mini opacity-75">Followers</div>
+												<h5 class="text-semibold no-margin">2,483</h5>
+											</div>
+		
+											<div class="col-xs-3">
+												<div class="text-uppercase text-size-mini opacity-75">Contacts</div>
+												<h5 class="text-semibold no-margin">1,257</h5>
+											</div>
+		
+											<div class="col-xs-5">
+												<div class="text-uppercase text-size-mini opacity-75">&nbsp;&nbsp;Profile Views</div>
+												<h5 class="text-semibold no-margin">8,472</h5>
+											</div>
+										</div>
+									</div>
+								</div>
+							<!-- /invitation stats white -->
+
+						
+
+						<!-- Simple info widget with icon -->
+						<div class="panel panel-body">
+							<div class="media no-margin">
+								<div class="media-body">
+									<h5 class="media-heading text-semibold">Contact Info &nbsp;&nbsp; <i data-toggle="modal" data-target="#modal_theme_update_contact" class="icon-pencil icon-1x text-teal-300 position-left" style="cursor: pointer; size:50px"></i></h5>
+									<span class="text-muted"><a href="#">careercolony.com/nkechi</a></span>
+									
+									<div class="caption mb-15">
+										<h6 class="no-margin-bottom text-teal text-semibold">
+											Address
+										</h6>
+										7 Folawewo street off Allen Avenue Ikeja Lagos
+									</div>
+									
+									<div class="caption mb-15">
+										<h6 class="no-margin-bottom text-teal text-semibold">
+											Email
+										</h6>
+										flavoursoft@yahoo.com
+									</div>
+									
+
+								</div>
+
+								<div class="media-right media-middle">
+									<i class="icon-vcard icon-2x text-grey-300"></i>
+								</div>
+							</div>
+						</div>
+						<!-- /simplw info widget with icon -->
+
+						
+
+					</div>
+				</div>
+				<!-- /user profile -->
+
+			</div>
+			<!-- /main content -->
+
+		</div>
+		<!-- /page content -->
+
+	</div>
+	<!-- /page container -->
+
+
+
+
+
+
+
+	<!-- edit headline modal -->
+	<div id="modal_theme_update_headline" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header bg-info">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h6 class="modal-title">Update Heading</h6>
+				</div>
+	
+				<div class="modal-body">
+	
+							<div class="form-group">
+								<div class="row">
+									<div class="col-sm-6">
+										<label class="text-semibold">First Name</label>
+										<input type="text" placeholder="" class="form-control">
+									</div>
+									<div class="col-sm-6">
+										<label class="text-semibold">Last Name</label>
+										<input type="text" placeholder="" class="form-control">
+									</div>
+	
+									
+	
+									
+								</div>
+							</div>
+	
+							<div class="form-group">
+								<div class="row">
+										<div class="col-sm-8">
+												<div class="form-group">
+														<label class="text-semibold">Current Employer</label>
+														<select data-placeholder="Select type..." class="select">
+																<option>Nigeria</option>
+																<option>USA</option>
+																<option value="AZ">United Kingdom</option>
+																<option value="CO">India</option>
+																<option value="ID">China</option>
+																<option value="WY">Japan</option>
+														</select>
+												</div>
+												<span class="pull-right" style="position:relative; top:-15px"><i data-toggle="modal" data-target="#modal_theme_update_contact" class="icon-plus2 icon-1x text-teal-300 position-left" style="cursor: pointer; size:50px"></i> Add new employer</span>
+													
+										</div>
+										<div class="col-sm-4">
+												<div class="form-group">
+														<label class="text-semibold">Industry</label>
+														<select data-placeholder="Select type..." class="select">
+																<option>Nigeria</option>
+																<option>USA</option>
+																<option value="AZ">United Kingdom</option>
+																<option value="CO">India</option>
+																<option value="ID">China</option>
+																<option value="WY">Japan</option>
+														</select>
+												</div>
+													
+										</div>
+	
+								</div>
+							</div>
+
+							<div class="form-group">
+									<div class="row">
+											<div class="col-sm-8">
+													<div class="form-group">
+															<label class="text-semibold">Education</label>
+															<select data-placeholder="Select type..." class="select">
+																	<option>Nigeria</option>
+																	<option>USA</option>
+																	<option value="AZ">United Kingdom</option>
+																	<option value="CO">India</option>
+																	<option value="ID">China</option>
+																	<option value="WY">Japan</option>
+															</select>
+													</div>
+													<span class="pull-right" style="position:relative; top:-15px"><i data-toggle="modal" data-target="#modal_theme_update_contact" class="icon-plus2 icon-1x text-teal-300 position-left" style="cursor: pointer; size:50px"></i> Add new education</span>
+														
+											</div>
+											<div class="col-sm-4">
+													<div class="form-group">
+															<label class="text-semibold">Country</label>
+															<select data-placeholder="Select type..." class="select">
+																	<option>Nigeria</option>
+																	<option>USA</option>
+																	<option value="AZ">United Kingdom</option>
+																	<option value="CO">India</option>
+																	<option value="ID">China</option>
+																	<option value="WY">Japan</option>
+															</select>
+													</div>
+														
+											</div>
+											
+		
+									</div>
+								</div>
+	
+							
+	
+							
+						<div class="form-group">
+								<div class="row">
+									<div class="col-sm-12">
+										<label class="text-semibold">Summary</label>
+										<textarea type="text" placeholder="" class="form-control"></textarea>
+									</div>
+									
+	
+								</div>
+							</div>
+	
+	
+				<div class="modal-footer">
+					<button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-info">Save changes</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /edit headline modal -->
+	
+	
+<!-- edit headline modal -->
+<div id="modal_theme_update_contact" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header bg-info">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h6 class="modal-title">Update Personal Info</h6>
+				</div>
+	
+				<div class="modal-body">
+					
+						<div class="form-group">
+								<div class="row">
+									<div class="col-sm-12">
+										<label class="text-semibold">Address</label>
+										<input type="text" placeholder="" class="form-control">
+									</div>
+									
+								</div>
+							</div>
+	
+							<div class="form-group">
+								<div class="row">
+									<div class="col-sm-4">
+										<label class="text-semibold">City</label>
+										<input type="text" placeholder="" class="form-control">
+									</div>
+									<div class="col-sm-4">
+										<label class="text-semibold">State</label>
+										<input type="text" placeholder="" class="form-control">
+									</div>
+	
+									<div class="col-sm-4">
+											<div class="form-group">
+													<label class="text-semibold">Country</label>
+													<select data-placeholder="Select type..." class="select">
+															<option>Nigeria</option>
+															<option>USA</option>
+															<option value="AZ">United Kingdom</option>
+															<option value="CO">India</option>
+															<option value="ID">China</option>
+															<option value="WY">Japan</option>
+													</select>
+											</div>
+												
+									</div>
+	
+									
+								</div>
+							</div>
+	
+							<div class="form-group">
+								<div class="row">
+									<div class="col-sm-6">
+										<label class="text-semibold">Email</label>
+										<input type="text" placeholder="" class="form-control">
+									</div>
+									<div class="col-sm-4">
+										<label class="text-semibold">Mobile phone</label>
+										<input type="text" placeholder="" class="form-control">
+									</div>
+	
+								</div>
+							</div>
+	
+							
+	
+							<div class="form-group">
+								<div class="row">
+										<div class="col-sm-4">
+											<div class="form-group">
+												<label class="text-semibold">Birthday</label>
+												<select data-placeholder="Select type..." class="select">
+														<option>January</option>
+														<option>February</option>
+														<option value="AZ">March</option>
+														<option value="CO">April</option>
+														<option value="ID">May</option>
+														<option value="WY">June</option>
+														<option value="AZ">July</option>
+														<option value="CO">August</option>
+														<option value="ID">September</option>
+														<option value="WY">October</option>
+														<option value="AZ">November</option>
+														<option value="CO">December</option>
+												</select>
+											</div>		
+										</div>
+	
+										<div class="col-sm-2">
+											<label class="text-semibold">&nbsp;&nbsp;</label>
+											<input type="text" placeholder="" class="form-control">
+										</div>
+								</div>
+						</div>
+	
+						<div class="form-group">
+								<div class="row">
+									<div class="col-sm-6">
+										<label class="text-semibold">Twitter Profile</label>
+										<input type="text" placeholder="" class="form-control">
+									</div>
+									<div class="col-sm-6">
+										<label class="text-semibold">Facebook Profile</label>
+										<input type="text" placeholder="" class="form-control">
+									</div>
+	
+								</div>
+							</div>
+	
+	
+				<div class="modal-footer">
+					<button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-info">Save changes</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /edit headline modal -->
+
+		
+		
+
+
+
+    
+
+
+
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

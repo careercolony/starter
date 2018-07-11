@@ -1,0 +1,242 @@
+<div class="panel panel-white">
+    <div class="panel-heading">
+      <h6 class="panel-title">My Certifications</h6>
+      <div class="heading-elements">
+        <button type="button" data-toggle="modal" (click)="initAddCertificationModal()" data-target="#modal_theme_add_certification" data-popup="tooltip" data-placement="top" title="Add new" class="btn border-teal text-teal btn-flat btn-rounded btn-icon btn-xs"><i class="icon-plus2"></i></button>	&nbsp;&nbsp;										
+      </div>
+    </div>
+
+    <ul class="media-list">		
+      <li *ngFor="let certification of certificationList" class="media panel-body stack-media-on-mobile">
+        <div class="media-left">
+        </div>
+        
+        <div class="media-body">
+          <h6 class="media-heading text-semibold">{{certification.cert_name}}
+          &nbsp;&nbsp; <i data-toggle="modal" (click)="prepareUpdateModal(certification)" data-target="#modal_theme_update_certification" class="icon-pencil5 position-left" style="cursor: pointer; size:50px"></i>
+          &nbsp;&nbsp; <i data-toggle="modal" (click)="prepareDeleteModal(certification)" data-target="#modal_theme_delete_certification" class="icon-bin position-left" style="cursor: pointer; size:50px"></i>
+            <span class="media-annotation pull-right"> {{certification.start_month}} {{certification.start_year}} - {{certification.end_month}} {{certification.end_year}} </span>
+          </h6>
+          <span><strong>{{certification.cert_authority}}</strong> (<strong>{{certification.cert_url}}</strong>)</span>
+          <span>Licence Number: <strong>{{certification.licence}}</strong></span>
+          <ul class="list-inline list-inline-separate text-muted mb-5">
+            <!-- <li><i class="icon-book-play position-left"></i> Video tutorials</li> -->
+            <!-- <li>Created: {{experience.created_date}}</li> -->
+            <li>Updated: {{certification.updated_date | relativeTime}}</li>
+          </ul>
+        </div>	
+      </li>
+  
+  <!-- add certification modal -->
+  <div id="modal_theme_add_certification" class="modal fade">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <form [formGroup]="addCertificationForm" (ngSubmit)="addCertification(addCertificationForm.value)">
+          <div class="modal-header bg-info">
+            <button id="addCertificationModalDismissButton" type="button" class="close" data-dismiss="modal">&times;</button>
+            <h6 class="modal-title">Add Certification</h6>
+          </div>
+  
+          <div class="modal-body">
+            <span *ngIf="error" class="help-block text-danger"><i class="icon-cancel-circle2 position-left"></i>{{error}}</span>
+            <span *ngIf="message" class="help-block text-success"><i class="icon-checkmark position-left"></i>{{message}}</span>
+            <div class="form-group">
+              <div class="row">
+                <div class="col-sm-6">
+                  <label class="text-semibold">Certification Name</label>
+                  <input type="text" class="form-control" formControlName="cert_name">
+                </div>
+                <div class="col-sm-6">
+                  <div class="form-group">
+                      <label class="text-semibold">Licence</label>
+                      <input type="text" class="form-control" formControlName="licence">
+                  </div>				
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="row">
+                <div class="col-sm-6">
+                  <label class="text-semibold">Certification Authority</label>
+                  <input type="text" class="form-control" formControlName="cert_authority">
+                </div>
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label class="text-semibold">Authority URL</label>
+                    <input type="text" class="form-control" formControlName="cert_url">
+                  </div>				
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="row">
+                <div class="col-sm-3">
+                  <label class="text-semibold">From</label>
+                  <select class="form-control" formControlName="start_month">
+                    <option *ngFor="let month of monthList" [selected]="month == startMonth">{{month}}</option>
+                  </select>
+                </div>
+                <div class="col-sm-2">
+                  <label class="text-semibold">&nbsp;</label>
+                  <input type="number" class="form-control" min="1900" max="2099" step="1" formControlName="start_year"/>
+                </div>
+                <div class="col-sm-3">
+                  <label class="text-semibold">To</label>
+                  <select class="form-control" formControlName="end_month">
+                    <option *ngFor="let month of monthList" [selected]="month == endMonth">{{month}}</option>
+                  </select>
+                </div>
+                <div class="col-sm-2">
+                    <label class="text-semibold">&nbsp;</label>
+                  <input type="number" class="form-control" min="1900" max="2099" step="1" formControlName="end_year"/>	
+                </div>
+                <div class="col-sm-2">
+                  <div class="form-group">
+                    <label class="text-semibold">Expires</label>
+                    <div class="form-group">
+                      <input type="checkbox" formControlName="expires"/> &nbsp;&nbsp;
+                    </div>
+                  </div>		
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-info" [disabled]="!addCertificationForm.valid || isAddCertificationFormSubmitted">
+              <span *ngIf="!isAddCertificationFormSubmitted;else show_saving_changes">
+                Save Changes
+              </span>
+              <ng-template #show_saving_changes>Saving Changes. Please wait...</ng-template>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- /add certification modal -->
+      
+  
+  <!-- update certification modal -->
+  <div id="modal_theme_update_certification" class="modal fade">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <form [formGroup]="updateCertificationForm" (ngSubmit)="updateCertification(updateCertificationForm.value)">
+          <input type="hidden" formControlName="certID"/>
+          <input type="hidden" formControlName="created_date"/>
+          <div class="modal-header bg-info">
+            <button id="updateCertificationModalDismissButton" type="button" class="close" data-dismiss="modal">&times;</button>
+            <h6 class="modal-title">Edit Certification</h6>
+          </div>
+    
+          <div class="modal-body">
+            <span *ngIf="error" class="help-block text-danger"><i class="icon-cancel-circle2 position-left"></i>{{error}}</span>
+            <span *ngIf="message" class="help-block text-success"><i class="icon-checkmark position-left"></i>{{message}}</span>
+            <div class="form-group">
+                <div class="row">
+                  <div class="col-sm-6">
+                    <label class="text-semibold">Certification Name</label>
+                    <input type="text" class="form-control" formControlName="cert_name">
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                        <label class="text-semibold">Licence</label>
+                        <input type="text" class="form-control" formControlName="licence">
+                    </div>				
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-sm-6">
+                    <label class="text-semibold">Certification Authority</label>
+                    <input type="text" class="form-control" formControlName="cert_authority">
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <label class="text-semibold">Authority URL</label>
+                      <input type="text" class="form-control" formControlName="cert_url">
+                    </div>				
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-sm-3">
+                    <label class="text-semibold">From</label>
+                    <select class="form-control" formControlName="start_month">
+                      <option *ngFor="let month of monthList" [selected]="month == startMonth">{{month}}</option>
+                    </select>
+                  </div>
+                  <div class="col-sm-2">
+                    <label class="text-semibold">&nbsp;</label>
+                    <input type="number" class="form-control" min="1900" max="2099" step="1" formControlName="start_year"/>
+                  </div>
+                  <div class="col-sm-3">
+                    <label class="text-semibold">To</label>
+                    <select class="form-control" formControlName="end_month">
+                      <option *ngFor="let month of monthList" [selected]="month == endMonth">{{month}}</option>
+                    </select>
+                  </div>
+                  <div class="col-sm-2">
+                      <label class="text-semibold">&nbsp;</label>
+                    <input type="number" class="form-control" min="1900" max="2099" step="1" formControlName="end_year"/>	
+                  </div>
+                  <div class="col-sm-2">
+                    <div class="form-group">
+                      <label class="text-semibold">Expires</label>
+                      <div class="form-group">
+                        <input type="checkbox" formControlName="expires"/> &nbsp;&nbsp;
+                      </div>
+                    </div>		
+                  </div>
+                </div>
+              </div>
+          </div>
+    
+          <div class="modal-footer">
+            <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-info" [disabled]="!updateCertificationForm.valid || isUpdateCertificationFormSubmitted">
+              <span *ngIf="!isUpdateCertificationFormSubmitted;else show_updating_changes">
+                Save Changes
+              </span>
+              <ng-template #show_updating_changes>Saving Changes. Please wait...</ng-template>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- /update certification modal -->
+  
+  <!-- delete certification modal -->
+  <div id="modal_theme_delete_certification" class="modal fade">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <form [formGroup]="deleteCertificationForm" (ngSubmit)="deleteCertification(deleteCertificationForm.value)">
+          <input type="hidden" formControlName="certID"/>
+          <div class="modal-header bg-info">
+            <button id="deleteCertificationModalDismissButton" type="button" class="close" data-dismiss="modal">&times;</button>
+            <h6 class="modal-title">Delete Certification</h6>
+          </div>
+      
+          <div class="modal-body">
+            <span *ngIf="error" class="help-block text-danger"><i class="icon-cancel-circle2 position-left"></i>{{error}}</span>
+            <span *ngIf="message" class="help-block text-success"><i class="icon-checkmark position-left"></i>{{message}}</span>
+            <h5>Are you sure you want to delete this certification ?</h5>
+          </div>
+      
+          <div class="modal-footer">
+            <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-info" [disabled]="!deleteCertificationForm.valid || isDeleteCertificationFormSubmitted">
+              <span *ngIf="!isDeleteCertificationFormSubmitted;else show_deleting">
+                Delete
+              </span>
+              <ng-template #show_deleting>Deleting. Please wait...</ng-template>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- /delete certification modal -->

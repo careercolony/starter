@@ -1,0 +1,279 @@
+<!-- Main navbar -->
+<div class="navbar navbar-inverse navbar-fixed-top">
+  <div class="navbar-boxed">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="index.html"><img src="assets/images/logo.png" alt=""></a>
+
+      <ul class="nav navbar-nav pull-right visible-xs-block">
+        <li><a data-toggle="collapse" data-target="#navbar-mobile"><i class="icon-tree5"></i></a></li>
+      </ul>
+    </div>
+
+    <div class="navbar-collapse collapse" id="navbar-mobile">
+      
+      <ul class="nav navbar-nav">
+        <li ><div style="position:relative; top:5px"><input style="width:290px" type="search" class="form-control typeahead-remote" placeholder="Find jobs, people, posts & groups"></div></li>
+      </ul>
+      
+
+  <ul class="nav navbar-nav navbar-right">
+
+      <li *ngIf="isLoggedIn$ | async" class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+          <i class="icon-envelop5"></i>
+          <!-- <span class="visible-xs-inline-block position-right">Messages</span> -->
+          <!-- <span class="badge bg-warning-400">4</span> -->
+        </a>
+        
+        <!-- <div class="dropdown-menu dropdown-content width-350">
+          <div class="dropdown-content-heading">
+            Messages
+            <ul class="icons-list">
+              <li><a href="#"><i class="icon-compose"></i></a></li>
+            </ul>
+          </div>
+
+          <ul class="media-list dropdown-content-body">
+            <li class="media">
+              <div class="media-left">
+                <img src="assets/images/placeholder.jpg" class="img-circle img-sm" alt="">
+                <span class="badge bg-danger-400 media-badge">5</span>
+              </div>
+
+              <div class="media-body">
+                <a href="#" class="media-heading">
+                  <span class="text-semibold">James Alexander</span>
+                  <span class="media-annotation pull-right">04:58</span>
+                </a>
+
+                <span class="text-muted">who knows, maybe that would be the best thing for me...</span>
+              </div>
+            </li>
+
+            <li class="media">
+              <div class="media-left">
+                <img src="assets/images/placeholder.jpg" class="img-circle img-sm" alt="">
+                <span class="badge bg-danger-400 media-badge">4</span>
+              </div>
+
+              <div class="media-body">
+                <a href="#" class="media-heading">
+                  <span class="text-semibold">Margo Baker</span>
+                  <span class="media-annotation pull-right">12:16</span>
+                </a>
+
+                <span class="text-muted">That was something he was unable to do because...</span>
+              </div>
+            </li>
+
+            <li class="media">
+              <div class="media-left"><img src="assets/images/placeholder.jpg" class="img-circle img-sm" alt=""></div>
+              <div class="media-body">
+                <a href="#" class="media-heading">
+                  <span class="text-semibold">Jeremy Victorino</span>
+                  <span class="media-annotation pull-right">22:48</span>
+                </a>
+
+                <span class="text-muted">But that would be extremely strained and suspicious...</span>
+              </div>
+            </li>
+
+            <li class="media">
+              <div class="media-left"><img src="assets/images/placeholder.jpg" class="img-circle img-sm" alt=""></div>
+              <div class="media-body">
+                <a href="#" class="media-heading">
+                  <span class="text-semibold">Beatrix Diaz</span>
+                  <span class="media-annotation pull-right">Tue</span>
+                </a>
+
+                <span class="text-muted">What a strenuous career it is that I've chosen...</span>
+              </div>
+            </li>
+
+            <li class="media">
+              <div class="media-left"><img src="assets/images/placeholder.jpg" class="img-circle img-sm" alt=""></div>
+              <div class="media-body">
+                <a href="#" class="media-heading">
+                  <span class="text-semibold">Richard Vango</span>
+                  <span class="media-annotation pull-right">Mon</span>
+                </a>
+                
+                <span class="text-muted">Other travelling salesmen live a life of luxury...</span>
+              </div>
+            </li>
+          </ul>
+
+          <div class="dropdown-content-footer">
+            <a href="#" data-popup="tooltip" title="All messages"><i class="icon-menu display-block"></i></a>
+          </div>
+        </div> -->
+      </li>
+      <li *ngIf="isLoggedIn$ | async" class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+          <i class="icon-bell2"></i>
+          <!-- <span class="visible-xs-inline-block position-right">Messages</span> -->
+          <!-- <span *ngIf="isLogin" class="badge bg-warning-400">2</span> -->
+        </a>
+        
+        <!-- <div class="dropdown-menu dropdown-content width-350">
+          <div class="dropdown-content-heading">
+            Messages
+            <ul class="icons-list">
+              <li><a href="#"><i class="icon-compose"></i></a></li>
+            </ul>
+          </div>
+
+          <ul class="media-list dropdown-content-body">
+            <li class="media">
+              <div class="media-left">
+                <img src="assets/images/placeholder.jpg" class="img-circle img-sm" alt="">
+                <span class="badge bg-danger-400 media-badge">5</span>
+              </div>
+
+              <div class="media-body">
+                <a href="#" class="media-heading">
+                  <span class="text-semibold">James Alexander</span>
+                  <span class="media-annotation pull-right">04:58</span>
+                </a>
+
+                <span class="text-muted">who knows, maybe that would be the best thing for me...</span>
+              </div>
+            </li>
+
+            <li class="media">
+              <div class="media-left">
+                <img src="assets/images/placeholder.jpg" class="img-circle img-sm" alt="">
+                <span class="badge bg-danger-400 media-badge">4</span>
+              </div>
+
+              <div class="media-body">
+                <a href="#" class="media-heading">
+                  <span class="text-semibold">Margo Baker</span>
+                  <span class="media-annotation pull-right">12:16</span>
+                </a>
+
+                <span class="text-muted">That was something he was unable to do because...</span>
+              </div>
+            </li>
+
+            <li class="media">
+              <div class="media-left"><img src="assets/images/placeholder.jpg" class="img-circle img-sm" alt=""></div>
+              <div class="media-body">
+                <a href="#" class="media-heading">
+                  <span class="text-semibold">Jeremy Victorino</span>
+                  <span class="media-annotation pull-right">22:48</span>
+                </a>
+
+                <span class="text-muted">But that would be extremely strained and suspicious...</span>
+              </div>
+            </li>
+
+            <li class="media">
+              <div class="media-left"><img src="assets/images/placeholder.jpg" class="img-circle img-sm" alt=""></div>
+              <div class="media-body">
+                <a href="#" class="media-heading">
+                  <span class="text-semibold">Beatrix Diaz</span>
+                  <span class="media-annotation pull-right">Tue</span>
+                </a>
+
+                <span class="text-muted">What a strenuous career it is that I've chosen...</span>
+              </div>
+            </li>
+
+            <li class="media">
+              <div class="media-left"><img src="assets/images/placeholder.jpg" class="img-circle img-sm" alt=""></div>
+              <div class="media-body">
+                <a href="#" class="media-heading">
+                  <span class="text-semibold">Richard Vango</span>
+                  <span class="media-annotation pull-right">Mon</span>
+                </a>
+                
+                <span class="text-muted">Other travelling salesmen live a life of luxury...</span>
+              </div>
+            </li>
+          </ul>
+
+          <div class="dropdown-content-footer">
+            <a href="#" data-popup="tooltip" title="All messages"><i class="icon-menu display-block"></i></a>
+          </div>
+        </div> -->
+      </li>
+
+      <li *ngIf="isLoggedIn$ | async" class="dropdown dropdown-user">
+        <a class="dropdown-toggle" data-toggle="dropdown">
+          <!-- <img *ngIf="disabled && isLogin" src="assets/images/5863c7afb5bcb_black-woman-thinking.-pf.jpg" alt=""> -->
+          <img src="assets/images/avarta.png" alt="">
+          <span>&nbsp;</span>
+          <i class="caret"></i>
+
+        </a>
+
+        <ul *ngIf="isLoggedIn$ | async" class="dropdown-menu dropdown-menu-right">
+          <!-- <li><a href="#"><i class="icon-user-plus"></i> My profile</a></li> -->
+          <!-- <li><a href="#"><i class="icon-coins"></i> My balance</a></li> -->
+          <!-- <li><a href="#"><span class="badge badge-warning pull-right">58</span> <i class="icon-comment-discussion"></i> Messages</a></li> -->
+          <!-- <li class="divider"></li> -->
+          <!-- <li><a href="#"><i class="icon-cog5"></i> Account settings</a></li> -->
+          <li (click)="logout()"><a href=""><i class="icon-switch2"></i> Logout</a></li>
+        </ul>
+      </li>
+  </ul>
+    </div>
+  </div>
+</div>
+<!-- /main navbar -->
+
+  <!-- Second navbar -->
+<div class="navbar navbar-default" id="navbar-second">
+  <div class="navbar-boxed">
+    <ul class="nav navbar-nav no-border visible-xs-block">
+      <li><a class="text-center collapsed" data-toggle="collapse" data-target="#navbar-second-toggle"><i class="icon-menu7"></i></a></li>
+    </ul>
+
+    <div class="navbar-collapse collapse" id="navbar-second-toggle">
+      <ul class="nav navbar-nav">
+        <li routerLinkActive="active current"><a routerLink="/buzz" i18n><i class="icon-home position-left"></i> Home</a></li>
+        <li routerLinkActive="active current"><a routerLink="/profile/experience" i18n><i class="icon-user position-left"></i> Profile</a></li>
+        <li routerLinkActive="active current"><a routerLink="/contacts/my-contacts" i18n><i class="icon-collaboration position-left"></i> Contacts</a></li>
+        <li routerLinkActive="active current"><a routerLink="/jobs" i18n><i class="icon-briefcase3 position-left"></i> Jobs</a></li>
+        <li routerLinkActive="active current"><a routerLink="/companies" i18n><i class="icon-office position-left"></i> Companies</a></li>
+        <li routerLinkActive="active current"><a routerLink="/groups" i18n><i class="icon-users4 position-left"></i> Groups</a></li>
+        <li routerLinkActive="active current"><a routerLink="/test" i18n><i class="icon-users4 position-left"></i> Test</a></li>
+        
+    </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+        
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown">
+            <i class="icon-grid3 position-left"></i> Solutions <span class="caret"></span>
+          </a>
+
+          <ul class="dropdown-menu">
+        
+            <li class=" dropdown-menu-lg" style="padding:10px">
+                <div class="category-content">
+            <div class="row">
+              <div class="col-xs-6">
+                <button class="btn bg-teal-400 btn-block btn-float btn-float-lg" type="button"><i class="icon-git-branch"></i> <span>Branch</span></button>
+                <button class="btn bg-purple-300 btn-block btn-float btn-float-lg" type="button"><i class="icon-mail-read"></i> <span>Messages</span></button>
+              </div>
+              
+              <div class="col-xs-6">
+                <button class="btn bg-warning-400 btn-block btn-float btn-float-lg" type="button"><i class="icon-stats-bars"></i> <span>Statistics</span></button>
+                <button class="btn bg-blue btn-block btn-float btn-float-lg" type="button"><i class="icon-people"></i> <span>Users</span></button>
+              </div>
+            </div>
+          </div>
+
+            </li>
+            
+          </ul>
+        </li>
+
+
+      </ul>
+    </div>
+  </div>
+</div>
+<!-- /second navbar -->

@@ -1,0 +1,418 @@
+<div class="panel panel-white">
+    <div class="panel-heading">
+        <h6 class="panel-title">Professional Experience</h6>
+      	<div class="heading-elements">
+        	<button type="button" data-toggle="modal" (click)="initAddExperienceModal()" data-target="#modal_theme_add_experience" data-popup="tooltip" data-placement="top" title="Add new" class="btn border-teal text-teal btn-flat btn-rounded btn-icon btn-xs"><i class="icon-plus2"></i></button>	&nbsp;&nbsp;										
+      	</div>
+    </div>
+
+    <ul class="media-list">		
+		<li *ngFor="let experience of experienceList" class="media panel-body stack-media-on-mobile">
+			<div class="media-left">
+				<a href="#">
+					
+					<a href="#"><img [src]="imageUrl" (error)="onError()"class="img-rounded img-lg" alt=""/></a>
+
+				</a>
+			</div>
+			
+			<div class="media-body">
+				<h6 class="media-heading text-teal text-semibold">{{experience.position}}
+				&nbsp;&nbsp; <i data-toggle="modal" (click)="prepareUpdateModal(experience)" data-target="#modal_theme_update_experience" class="icon-pencil5 position-left" style="cursor: pointer; size:50px"></i>
+				&nbsp;&nbsp; <i data-toggle="modal" (click)="prepareDeleteModal(experience)" data-target="#modal_theme_delete_experience" class="icon-bin position-left" style="cursor: pointer; size:50px"></i>
+					<span *ngIf="experience.current == 'no'" class="media-annotation pull-right"> {{experience.start_month}} {{experience.start_year}} - {{experience.end_month}} {{experience.end_year}} </span>
+					<span *ngIf="experience.current == 'yes'" class="media-annotation pull-right"> {{experience.start_month}} {{experience.start_year}} - current </span>
+				</h6>
+				<span><strong>{{experience.career_level}}</strong> at <strong>{{experience.employer}}</strong></span>
+				<ul class="list-inline list-inline-separate text-muted mb-5">
+					<!-- <li><i class="icon-book-play position-left"></i> Video tutorials</li> -->
+					<!-- <li>Created: {{experience.created_date}}</li> -->
+					<li>Updated: {{experience.updated_date | relativeTime}}</li>
+				</ul>
+				{{experience.description}}
+			</div>	
+		</li>
+      <!-- <li class="media panel-body stack-media-on-mobile">
+        <div class="media-left">
+          <a href="#">
+            <img src="assets/images/sample-logos/bmw.jpeg" class="img-rounded img-lg" alt="">
+          </a>
+        </div>
+
+        <div class="media-body">
+            <h6 class="media-heading text-semibold">Regional Directors
+			&nbsp;&nbsp; <i data-toggle="modal" data-target="#modal_theme_edit_experience" class="icon-pencil icon-1x text-teal-300 position-left" style="cursor: pointer; size:50px"></i>
+              <span class="media-annotation pull-right"> 2 years 6 months </span></h6>
+              <span>McDonald</span>
+              <ul class="list-inline list-inline-separate text-muted mb-5">
+                  <li><i class="icon-book-play position-left"></i> Video tutorials</li>
+                  <li>14 minutes ago</li>
+                  <li>14 minutes ago</li>
+              </ul>
+              Hello some plentiful a beneath much glanced that Showcase your expertise using product brochures, catalogs, scientific publications, and product documentation. savage pending dashingly and hare insane dull Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid laeggin.
+        </div>"Ring street 12"
+
+      </li>
+
+      <li class="media panel-body stack-media-on-mobile">
+          <div class="media-left">
+            <a href="#">
+              <img src="assets/images/sample-logos/redbull.png" class="img-rounded img-lg" alt="">
+            </a>
+          </div>
+
+          <div class="media-body">
+              <h6 class="media-heading text-semibold">Regional Director <span class="media-annotation"><i data-toggle="modal" data-target="#modal_theme_edit_experience" class="icon-pencil5 position-left" style="cursor: pointer; size:50px"></i>
+                
+              </span> 
+                <span class="media-annotation pull-right"> 2 years 6 months </span></h6>
+                <span>McDonald</span>
+                <ul class="list-inline list-inline-separate text-muted mb-5">
+                    <li><i class="icon-book-play position-left"></i> Video tutorials</li>
+                    <li>14 minutes ago</li>
+                </ul>
+                Hello some plentiful a beneath much glanced that savage pending dashingly and hare insane dull Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid laeggin.
+            </div>
+
+      </li>
+
+      <li class="media panel-body stack-media-on-mobile">
+          <div class="media-left">
+            <a href="#">
+              <img src="assets/images/sample-logos/mcdonald.jpeg" class="img-rounded img-lg" alt="">
+            </a>
+          </div>
+
+          <div class="media-body">
+              <h6 class="media-heading text-semibold">Regional Director <span class="media-annotation"><i data-toggle="modal" data-target="#modal_theme_edit_experience" class="icon-pencil5 position-left" style="cursor: pointer; size:50px"></i>
+                
+              </span> 
+                <span class="media-annotation pull-right"> 2 years 6 months </span></h6>
+                <span>McDonald</span>
+                <ul class="list-inline list-inline-separate text-muted mb-5">
+                    <li><i class="icon-book-play position-left"></i> Video tutorials</li>
+                    <li>14 minutes ago</li>
+                </ul>
+                Hello some plentiful a beneath much glanced that savage pending dashingly and hare insane dull Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid laeggin.
+          </div>
+
+      </li>
+
+      <li class="media panel-body stack-media-on-mobile">
+          <div class="media-left">
+            <a href="#">
+              <img src="assets/images/sample-logos/aok.png" class="img-rounded img-lg" alt="">
+            </a>
+          </div>
+
+          <div class="media-body">
+              <h6 class="media-heading text-semibold">Regional Director <span class="media-annotation"><i data-toggle="modal" data-target="#modal_theme_edit_experience" class="icon-pencil5 position-left" style="cursor: pointer; size:50px"></i>
+                
+              </span> 
+                <span class="media-annotation pull-right"> 2 years 6 months </span></h6>
+                <span>McDonald</span>
+                <ul class="list-inline list-inline-separate text-muted mb-5">
+                    <li><i class="icon-book-play position-left"></i> Video tutorials</li>
+                    <li>14 minutes ago</li>
+                </ul>
+                Hello some plentiful a beneath much glanced that savage pending dashingly and hare insane dull Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid laeggin.
+          </div>
+
+      </li>
+
+      <li class="media panel-body stack-media-on-mobile">
+          <div class="media-left">
+            <a href="#">
+              <img src="assets/images/sample-logos/ge.png" class="img-rounded img-lg" alt="">
+            </a>
+          </div>
+
+          <div class="media-body">
+              <h6 class="media-heading text-semibold">Regional Director <span class="media-annotation"><i data-toggle="modal" data-target="#modal_theme_edit_experience" class="icon-pencil5 position-left" style="cursor: pointer; size:50px"></i>
+                
+              </span> 
+                <span class="media-annotation pull-right"> 2 years 6 months </span></h6>
+                <span>McDonald</span>
+                <ul class="list-inline list-inline-separate text-muted mb-5">
+                    <li><i class="icon-book-play position-left"></i> Video tutorials</li>
+                    <li>14 minutes ago</li>
+                </ul>
+                Hello some plentiful a beneath much glanced that savage pending dashingly and hare insane dull Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid laeggin.
+          </div>
+
+      </li> -->
+	</ul>
+</div>
+
+
+<!-- add experience modal -->
+<div id="modal_theme_add_experience" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<form [formGroup]="addExperienceForm" (ngSubmit)="addExperience(addExperienceForm.value)">
+				<div class="modal-header bg-info">
+					<button id="addExperienceModalDismissButton" type="button" class="close" data-dismiss="modal">&times;</button>
+					<h6 class="modal-title">Add Experience</h6>
+				</div>
+
+				<div class="modal-body">
+					<span *ngIf="error" class="help-block text-danger"><i class="icon-cancel-circle2 position-left"></i>{{error}}</span>
+					<span *ngIf="message" class="help-block text-success"><i class="icon-checkmark position-left"></i>{{message}}</span>
+					<div class="form-group">
+						<div class="row">
+							<div class="col-sm-8">
+								<label class="text-semibold">Job title</label>
+								<input type="text" placeholder="Eg: Software Engineer" class="form-control" formControlName="position">
+							</div>
+							<div class="col-sm-4">
+								<div class="form-group">
+										<label class="text-semibold">Employment Type</label>
+										<input type="text" placeholder="Eg: Manager" class="form-control" formControlName="career_level">
+									<!-- <label class="text-semibold">Employment Type</label>
+									<select data-placeholder="Select type..." class="form-control" formControlName="career_level">
+										<option>Founder</option>
+										<option>Co-Founder</option>
+										<option>Full-time</option>
+										<option>Part-time</option>
+										<option>Intern</option>
+										<option>Freelancer</option>
+									</select> -->
+								</div>				
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="row">
+							<div class="col-sm-8">
+								<label class="text-semibold">Company name</label>
+								<input type="text" placeholder="Xyz Inc." class="form-control" formControlName="employer">
+							</div>
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label class="text-semibold">Industry</label>
+									<select data-placeholder="Select type..." class="form-control" formControlName="industry">
+										<option  *ngFor='let industry of industryList' value ='{{industry}}'>{{industry}}</option> 
+									</select>
+								</div>				
+							</div>
+							<!-- <div class="col-sm-4">
+								<label class="text-semibold">Location</label>
+								<input type="text" placeholder="Lagos , Nigeria" class="form-control" formControlName="employer">
+							</div> -->
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="row">
+								<div class="col-sm-3">
+									<label class="text-semibold">From</label>
+									<select class="form-control" formControlName="start_month">
+										<option *ngFor="let month of monthList" [selected]="month == startMonth">{{month}}</option>
+									</select>
+								</div>
+								<div class="col-sm-2">
+									<label class="text-semibold">&nbsp;</label>
+									<input type="number" class="form-control" min="1900" max="2099" step="1" formControlName="start_year"/>	
+								</div>
+								<div class="col-sm-3">
+									<label class="text-semibold">To</label>
+									<select class="form-control" formControlName="end_month">
+										<option *ngFor="let month of monthList" [selected]="month == endMonth">{{month}}</option>
+									</select>
+								</div>
+								<div class="col-sm-2">
+									<label class="text-semibold">&nbsp;</label>
+									<input type="number" class="form-control" min="1900" max="2099" step="1" formControlName="end_year"/>	
+								</div>
+							<div class="col-sm-2">
+								<div class="form-group">
+									<label class="text-semibold">Present</label>
+									<div class="form-group">
+										<input type="checkbox" formControlName="current" (click)="toggleAddIsPresent()"/> &nbsp;&nbsp;
+									</div>
+								</div>		
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="row">
+							<div class="col-sm-12">
+								<label class="text-semibold">Description</label>
+								<textarea name="description" class="form-control mb-15" rows="3"  placeholder="Type your job description here" formControlName="description"></textarea>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<input type="checkbox" (click)="toggleAddMakeHeadline()"/> &nbsp;&nbsp; Make this just my headline
+					</div>
+				</div>
+
+				<div class="modal-footer">
+					<button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+					<button type="submit" class="btn btn-info" [disabled]="!addExperienceForm.valid || isAddExperienceFormSubmitted">
+						<span *ngIf="!isAddExperienceFormSubmitted;else show_saving_changes">
+							Save Changes
+						</span>
+						<ng-template #show_saving_changes>Saving Changes. Please wait...</ng-template>
+					</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<!-- /add experience modal -->
+    
+
+<!-- update experience modal -->
+<div id="modal_theme_update_experience" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<form [formGroup]="updateExperienceForm" (ngSubmit)="updateExperience(updateExperienceForm.value)">
+				<input type="hidden" formControlName="expID"/>
+				<input type="hidden" formControlName="created_date"/>
+				<div class="modal-header bg-info">
+					<button id="updateExperienceModalDismissButton" type="button" class="close" data-dismiss="modal">&times;</button>
+					<h6 class="modal-title">Edit Experience</h6>
+				</div>
+	
+				<div class="modal-body">
+					<span *ngIf="error" class="help-block text-danger"><i class="icon-cancel-circle2 position-left"></i>{{error}}</span>
+					<span *ngIf="message" class="help-block text-success"><i class="icon-checkmark position-left"></i>{{message}}</span>
+					<div class="form-group">
+						<div class="row">
+							<div class="col-sm-8">
+								<label class="text-semibold">Job title</label>
+								<input type="text" placeholder="Eg: Software Engineer" class="form-control" formControlName="position">
+							</div>
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label class="text-semibold">Employment Type</label>
+									<input type="text" placeholder="Eg: Manager" class="form-control" formControlName="career_level">
+									<!-- <select data-placeholder="Select type..." class="form-control" formControlName="career_level">
+										<option>Founder</option>
+										<option>Co-Founder</option>
+										<option>Full-time</option>
+										<option>Part-time</option>
+										<option>Intern</option>
+										<option>Freelancer</option>
+									</select> -->
+								</div>				
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="row">
+							<div class="col-sm-8">
+								<label class="text-semibold">Company name</label>
+								<input type="text" placeholder="Xyz Inc." class="form-control" formControlName="employer">
+							</div>
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label class="text-semibold">Industry</label>
+									<select data-placeholder="Select type..." class="form-control" formControlName="industry">
+										<option  *ngFor='let industry of industryList' value ='{{industry}}' [selected]="selectedIndustry == industry">{{industry}}</option> 
+										<!-- <option>Founder</option>
+										<option>Co-Founder</option>
+										<option>Full-time</option>
+										<option>Part-time</option>
+										<option>Intern</option>
+										<option>Freelancer</option> -->
+									</select>
+								</div>				
+							</div>
+							<!-- <div class="col-sm-4">
+								<label class="text-semibold">Location</label>
+								<input type="text" placeholder="Lagos , Nigeria" class="form-control" formControlName="employer">
+							</div> -->
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="row">
+							<div class="col-sm-3">
+								<label class="text-semibold">From</label>
+								<select class="form-control" formControlName="start_month">
+									<option *ngFor="let month of monthList" [selected]="month == startMonth">{{month}}</option>
+								</select>
+							</div>
+							<div class="col-sm-2">
+								<label class="text-semibold">&nbsp;</label>
+								<input type="number" class="form-control" min="1900" max="2099" step="1" formControlName="start_year"/>	
+							</div>
+							<div class="col-sm-3">
+								<label class="text-semibold">To</label>
+								<select class="form-control" formControlName="end_month">
+									<option *ngFor="let month of monthList" [selected]="month == endMonth">{{month}}</option>
+								</select>
+							</div>
+							<div class="col-sm-2">
+								<label class="text-semibold">&nbsp;</label>
+								<input type="number" class="form-control" min="1900" max="2099" step="1" formControlName="end_year"/>	
+							</div>
+							<div class="col-sm-2">
+								<div class="form-group">
+									<label class="text-semibold">Present</label>
+									<div class="form-group">
+										<input type="checkbox" formControlName="current" (click)="toggleUpdateIsPresent()"/> &nbsp;&nbsp;
+									</div>
+								</div>		
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="row">
+							<div class="col-sm-12">
+								<label class="text-semibold">Description</label>
+								<textarea name="description" class="form-control mb-15" rows="3"  placeholder="Type your job description here" formControlName="description"></textarea>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<input type="checkbox" (click)="toggleUpdateMakeHeadline()"/> &nbsp;&nbsp; Make this just my headline
+					</div>
+				</div>
+	
+				<div class="modal-footer">
+					<button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+					<button type="submit" class="btn btn-info" [disabled]="!updateExperienceForm.valid || isUpdateExperienceFormSubmitted">
+						<span *ngIf="!isUpdateExperienceFormSubmitted;else show_updating_changes">
+							Save Changes
+						</span>
+						<ng-template #show_updating_changes>Saving Changes. Please wait...</ng-template>
+					</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<!-- /update experience modal -->
+
+<!-- delete experience modal -->
+<div id="modal_theme_delete_experience" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<form [formGroup]="deleteExperienceForm" (ngSubmit)="deleteExperience(deleteExperienceForm.value)">
+				<input type="hidden" formControlName="expID"/>
+				<div class="modal-header bg-info">
+					<button id="deleteExperienceModalDismissButton" type="button" class="close" data-dismiss="modal">&times;</button>
+					<h6 class="modal-title">Delete Experience</h6>
+				</div>
+		
+				<div class="modal-body">
+					<span *ngIf="error" class="help-block text-danger"><i class="icon-cancel-circle2 position-left"></i>{{error}}</span>
+					<span *ngIf="message" class="help-block text-success"><i class="icon-checkmark position-left"></i>{{message}}</span>
+					<h5>Are you sure you want to delete this experience ?</h5>
+				</div>
+		
+				<div class="modal-footer">
+					<button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+					<button type="submit" class="btn btn-info" [disabled]="!deleteExperienceForm.valid || isDeleteExperienceFormSubmitted">
+						<span *ngIf="!isDeleteExperienceFormSubmitted;else show_deleting">
+							Delete
+						</span>
+						<ng-template #show_deleting>Deleting. Please wait...</ng-template>
+					</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<!-- /delete experience modal -->

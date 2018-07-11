@@ -1,0 +1,144 @@
+.modal-dialog {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin:0;
+}
+.modal-content {    
+    height: 100%;
+    border-radius: 0;
+    color:white;
+    overflow:auto;
+}
+.close
+  {
+    color:white ! important;
+    opacity:1.0;
+  } 
+#first-child
+  {
+    top:0;
+    left:0;
+    background-color: yellowgreen;
+  }
+  #second-child
+  {
+    top:0;
+    left:50%;
+    background-color: #E6537D;
+    color:black;
+  }
+  #third-child
+  {
+    top:50%;
+    left:0;
+    background-color: crimson;
+  }
+  #fourth-child
+  {
+    top:50%;
+    left:50%;
+    background-color: lightseagreen;
+    color:black;
+  }
+  .big-box
+  {
+    position: absolute;
+    width: 50%;
+    height: 50%;
+    color:white;
+  }
+  .big-box h2
+  {
+    text-align: center;
+    margin-top: 20%;
+    padding: 20px;
+    width: 100%;
+    font-size: 1.8em;
+    letter-spacing: 2px;
+    font-weight: 700;
+    text-transform: uppercase;
+  cursor:pointer;
+  }
+
+  @media screen and (max-width: 46.5em) 
+  {
+    .big-box h2
+    {
+      font-size:16px;
+      padding-left:0px;
+      
+    }
+  }
+
+  @media screen and (max-width: 20.5em) 
+  {
+    .big-box h2
+    {
+      font-size:12px;
+      padding-left:0px;
+      margin-top:30%;
+      }
+  }
+  .modal-dialog {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin:0;
+  }
+  .modal-content {
+    
+    height: 100%;
+    border-radius: 0;
+    color:white;
+    overflow:auto;
+  }
+  .modal-title
+  {
+    font-size: 2em;
+    font-weight: 300;
+    margin: 0 0 5px 0;
+  }
+  .modal-content-one
+  {
+    background-color:yellowgreen;
+  }
+  .modal-content-two
+  {
+    background-color:#FFFFFF;
+  }
+  .modal-content-three
+  {
+    background-color:crimson;
+  }
+  .modal-content-four
+  {
+    background-color:lightseagreen;
+  }
+
+
+
+  .user-avatar {
+    background: transparent url("/assets/images/avatar-collection/009-user-1.png") no-repeat top center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: 100%;
+    height: 500px;
+  }
+
+  .video-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    padding-top: 30px; height: 0; overflow: hidden;
+    }
+    
+    .video-container iframe,
+    .video-container object,
+    .video-container embed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    }

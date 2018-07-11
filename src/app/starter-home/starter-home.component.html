@@ -1,0 +1,239 @@
+<a class="navbar-brand"  href="index.html"><img width="131" height="29" src="assets/images/logo.png" alt=""></a>
+<video playsinline autoplay muted loop poster="polina.jpg" id="bgvid">
+    <source src="polina.webm" type="video/webm">
+    <source src="assets/bgvideo7.mp4" type="video/mp4">
+</video>
+
+<!-- Page container -->
+	<div class="page-container">
+
+		<!-- Page content -->
+		<div class="page-content">
+
+			<!-- Main content -->
+			<div class="content-wrapper">
+
+				<!-- Tabbed form -->
+				<div class="tabbable panel login-form width-400">
+					<ul class="nav nav-tabs nav-justified">
+						<li class="active"><a href="#basic-tab1" data-toggle="tab"><h6 class="text-semibold">Sign in</h6></a></li>
+						<li><a href="#basic-tab2" data-toggle="tab"><h6 class="text-semibold">Register</h6></a></li>
+					</ul>
+
+					<div class="tab-content panel-body">
+						<div class="tab-pane fade in active" id="basic-tab1">
+							<form [formGroup]="loginForm" (ngSubmit)="login(loginForm.value)">
+								<div class="text-center">
+									<h5 class="content-group">Login to your account <small class="display-block">Your credentials</small></h5>
+								</div>
+								
+								<span *ngIf="loginErrors" class="help-block text-danger"><i class="icon-cancel-circle2 position-left"></i> {{loginErrors}}</span>
+									<div class="form-group has-feedback has-feedback-left">
+									<input type="text" class="form-control" placeholder="Email" formControlName = "email" pattern=".+@.+\..+">
+									<div class="form-control-feedback">
+										<i class="icon-user text-muted"></i>
+									</div>
+									
+									</div>
+
+									<div class="form-group has-feedback has-feedback-left">
+									<input type="password" formControlName="password" class="form-control" placeholder="Password">
+									<div class="form-control-feedback">
+										<i class="icon-lock2 text-muted"></i>
+									</div>
+									
+									</div>
+
+								<div class="form-group login-options">
+									<div class="row">
+										<div class="col-sm-6">
+											<label class="checkbox-inline">
+												<input type="checkbox" formControlName="rememberme" id="terms_signup" class="styled" checked="checked">
+												Remember
+											</label>
+										</div>
+
+										<div class="col-sm-6 text-right">
+											<a routerLink="/forgot-password">Forgot password?</a>
+										</div>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<button type="submit" class="btn bg-info btn-block" [disabled]="!loginForm.valid || isLoginFormSubmitted">
+										<span *ngIf="!isLoginFormSubmitted;else show_logging_in">
+												Login <i class="icon-arrow-right14 position-right"></i>
+											</span>
+										<ng-template #show_logging_in>Logging in. Please wait...</ng-template>
+									</button>
+								</div>
+							</form>
+						</div>
+
+						<div class="tab-pane fade" id="basic-tab2">
+							<form [formGroup]="signupForm" (ngSubmit)="signup(signupForm.value)">
+								<div class="text-center">
+									<h5 class="content-group">Create new account <small class="display-block">All fields are required</small></h5>
+								</div>
+								<span *ngIf="signupErrors" class="help-block text-danger"><i class="icon-cancel-circle2 position-left"></i>{{signupErrors}}</span>
+								<div class="form-group has-feedback has-feedback-left">
+									<input type="text" formControlName = "firstname" id="firstname" class="form-control" placeholder="Your first name">
+									<div class="form-control-feedback">
+										<i class="icon-user text-muted"></i>
+									</div>
+									
+									
+								</div>
+
+								<div class="form-group has-feedback has-feedback-left">
+									<input type="text" formControlName="lastname" id="lastname" class="form-control" placeholder="Your last name">
+									<div class="form-control-feedback">
+										<i class="icon-user text-muted"></i>
+									</div>
+									
+								</div>
+
+								<div class="form-group has-feedback has-feedback-left">
+									<input type="email" formControlName = "email" id="email_signup" class="form-control" placeholder="Your email" pattern=".+@.+\..+">
+									<div class="form-control-feedback">
+										<i class="icon-mention text-muted"></i>
+									</div>
+									
+								</div>
+
+								<div class="form-group has-feedback has-feedback-left">
+									<input type="password"  formControlName = "password" id="password_signup" class="form-control" placeholder="Create password">
+									<div class="form-control-feedback">
+										<i class="icon-user-lock text-muted"></i>
+									</div>
+									
+								</div>
+								<fieldset id="address-block" formGroupName="location">
+									<div class="form-group">
+									  <label>City: </label>
+									  <input type="text" formControlName="city" class="form-control border-teal">
+									</div>
+									<div class="form-group">
+									  <label>State: </label>
+									  <input type="text" formControlName="state" class="form-control border-teal">
+									</div>
+
+									<div class="form-group">
+									  <label>country: </label>
+									  <input type="text" formControlName="country" class="form-control border-teal">
+									</div>
+									<div class="form-group">
+									  <label>CountryCode: </label>
+									  <input type="text" formControlName="countryCode" class="form-control border-teal">
+									</div>
+
+
+									<div class="form-group">
+									  <label>Lat: </label>
+									  <input type="text" formControlName="lat" class="form-control border-teal">
+									</div>
+									<div class="form-group">
+									  <label>Lon: </label>
+									  <input type="text" formControlName="lon" class="form-control border-teal">
+									</div>
+
+
+									<div class="form-group">
+									  <label>ip: </label>
+									  <input type="text" formControlName="ip" class="form-control border-teal">
+									</div>
+									<div class="form-group">
+									  <label>timezone: </label>
+									  <input type="text" formControlName="timezone" class="form-control border-teal">
+									</div>
+									<div class="form-group">
+										<label>zip: </label>
+										<input type="text" formControlName="zip" class="form-control border-teal">
+									  </div>
+								</fieldset>
+								
+								<div class="content-divider text-muted form-group"></div>
+
+								<div class="form-group">
+									<div class="checkbox">
+										<label>
+											<input type="checkbox" formControlName = "terms" id="terms_signup" class="form-control styled">
+											Accept <a href="#">terms of service</a>
+										</label>
+									</div>
+								</div>
+								
+								<button class="btn bg-indigo-400 btn-block" type="submit" [disabled]="!signupForm.valid || isSignupFormSubmitted">
+									<span *ngIf="!isSignupFormSubmitted;else show_signing_up">
+										Register <i class="icon-circle-right2 position-right"></i>
+									</span>
+									<ng-template #show_signing_up>Singing up. Please wait...</ng-template>
+								</button>
+							</form>
+							<!-- <form [formGroup]="form_signup"  (ngSubmit)="signup()">
+								<div class="text-center">
+										<h5 class="content-group">Create new account <small class="display-block">All fields are required</small></h5>
+								</div>
+
+								<div class="form-group has-feedback has-feedback-left">
+												<input type="text" formControlName="firstname" id="firstname" class="form-control" placeholder="First name">
+									<div class="form-control-feedback"><i class="icon-user-check text-muted"></i></div>
+												<span *ngIf="firstname.touched && firstname.invalid" class="help-block text-danger"> 
+													<span *ngIf="firstname.errors.required" class="help-block text-danger"><i class="icon-cancel-circle2 position-left"></i> First name is required</span>
+													<span *ngIf="firstname.errors.cannotContainSpace" class="help-block text-danger"><i class="icon-cancel-circle2 position-left"></i> Last name cannot contain space</span>
+												</span>
+								</div>
+
+											<div class="form-group has-feedback has-feedback-left">
+												<input type="text" formControlName="lastname" id="lastname" class="form-control" placeholder="Last name">
+									<div class="form-control-feedback"><i class="icon-user-check text-muted"></i></div>
+												<span *ngIf="lastname.touched && lastname.invalid" class="help-block text-danger"> 
+													<span *ngIf="lastname.errors.required" class="help-block text-danger"><i class="icon-cancel-circle2 position-left"></i> Last name is required</span>
+													<span *ngIf="lastname.errors.cannotContainSpace" class="help-block text-danger"><i class="icon-cancel-circle2 position-left"></i> Last name cannot contain space</span>
+												</span>
+											</div>
+											
+											<div class="form-group has-feedback has-feedback-left">
+												<input type="email" formControlName="email" id="email" class="form-control" placeholder="Your email">
+												<div *ngIf="email.pending">Checking for uniqueness ...</div>
+									<div class="form-control-feedback"><i class="icon-mention text-muted"></i></div>
+												<span *ngIf="email.touched && email.invalid" class="help-block text-danger"> 
+													<span *ngIf="email.errors.required" class="help-block text-danger"><i class="icon-cancel-circle2 position-left"></i> Email is required</span>
+													<span *ngIf="email.errors.email" class="help-block text-danger"><i class="icon-cancel-circle2 position-left"></i> Enter a valid email address</span>
+													<span *ngIf="email.errors.cannotContainSpace" class="help-block text-danger"><i class="icon-cancel-circle2 position-left"></i> Email cannot contain space</span>
+													<span *ngIf="email.errors.shouldBeUnique" class="help-block text-danger"><i class="icon-cancel-circle2 position-left"></i> Email already in use</span>
+												</span>
+											</div>
+
+								<div class="form-group has-feedback has-feedback-left">
+									<input type="password" formControlName="password" class="form-control" placeholder="Create password">
+										<div class="form-control-feedback"><i class="icon-user-lock text-muted"></i></div>
+														<span *ngIf="password.touched && password.invalid" class="help-block text-danger"> 
+															<span *ngIf="password.errors.required" class="help-block text-danger"><i class="icon-cancel-circle2 position-left"></i> Password is required</span>
+															<span *ngIf="password.errors.minLength" class="help-block text-danger"><i class="icon-cancel-circle2 position-left"></i> Password should be minimum of {{password.errors.minLength.requiredLength}} characters</span>
+														</span>
+								</div>
+
+								<div class="form-group">
+									<div class="checkbox">
+										<label>
+											<input type="checkbox" class="styled">
+												Accept <a href="#">terms of service</a>
+										</label>
+									</div>
+								</div>
+
+								<button type="submit" class="btn bg-indigo-400 btn-block">Register <i class="icon-circle-right2 position-right"></i></button>
+							</form> -->
+						</div>
+					</div>
+				</div>
+				<!-- /tabbed form -->
+
+			</div>
+			<!-- /main content -->
+		</div>
+		<!-- /page content -->
+
+	</div>
+	<!-- /page container -->

@@ -1,0 +1,214 @@
+<div class="panel panel-white">
+    <div class="panel-heading">
+      <h6 class="panel-title">My Projects</h6>
+      <div class="heading-elements">
+          <button type="button" data-toggle="modal" (click)="initAddProjectModal()" data-target="#modal_theme_add_project" data-popup="tooltip" data-placement="top" title="Add new" class="btn border-teal text-teal btn-flat btn-rounded btn-icon btn-xs"><i class="icon-plus2"></i></button>	&nbsp;&nbsp;										
+        </div>
+      </div>
+  
+      <ul class="media-list">		
+        <li *ngFor="let project of projectList" class="media panel-body stack-media-on-mobile">
+          <div class="media-left">
+          </div>
+          
+          <div class="media-body">
+            <h6 class="media-heading text-semibold">{{project.project_name}}
+            &nbsp;&nbsp; <i data-toggle="modal" (click)="prepareUpdateModal(project)" data-target="#modal_theme_update_project" class="icon-pencil5 position-left" style="cursor: pointer; size:50px"></i>
+            &nbsp;&nbsp; <i data-toggle="modal" (click)="prepareDeleteModal(project)" data-target="#modal_theme_delete_project" class="icon-bin position-left" style="cursor: pointer; size:50px"></i>
+              <span class="media-annotation pull-right"> {{project.start_month}} {{project.start_year}} - {{project.end_month}} {{project.end_year}} </span>
+            </h6>
+            <span><strong>{{project.project_url}}</strong></span>
+            <ul class="list-inline list-inline-separate text-muted mb-5">
+              <!-- <li><i class="icon-book-play position-left"></i> Video tutorials</li> -->
+              <!-- <li>Created: {{experience.created_date}}</li> -->
+              <li>Updated: {{project.updated_date | relativeTime}}</li>
+            </ul>
+            {{project.description}}
+          </div>
+        </li>
+    
+    <!-- add project modal -->
+    <div id="modal_theme_add_project" class="modal fade">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <form [formGroup]="addProjectForm" (ngSubmit)="addProject(addProjectForm.value)">
+            <div class="modal-header bg-info">
+              <button id="addProjectModalDismissButton" type="button" class="close" data-dismiss="modal">&times;</button>
+              <h6 class="modal-title">Add Project</h6>
+            </div>
+    
+            <div class="modal-body">
+              <span *ngIf="error" class="help-block text-danger"><i class="icon-cancel-circle2 position-left"></i>{{error}}</span>
+              <span *ngIf="message" class="help-block text-success"><i class="icon-checkmark position-left"></i>{{message}}</span>
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-sm-6">
+                    <label class="text-semibold">Project Name</label>
+                    <input type="text" class="form-control" formControlName="project_name">
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                        <label class="text-semibold">Project URL</label>
+                        <input type="text" class="form-control" formControlName="project_url">
+                    </div>				
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-sm-4">
+                    <label class="text-semibold">From</label>
+                    <select class="form-control" formControlName="start_month">
+                      <option *ngFor="let month of monthList" [selected]="month == startMonth">{{month}}</option>
+                    </select>
+                  </div>
+                  <div class="col-sm-2">
+                    <label class="text-semibold">&nbsp;</label>
+                    <input type="number" class="form-control" min="1900" max="2099" step="1" formControlName="start_year"/>
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="text-semibold">To</label>
+                    <select class="form-control" formControlName="end_month">
+                      <option *ngFor="let month of monthList" [selected]="month == endMonth">{{month}}</option>
+                    </select>
+                  </div>
+                  <div class="col-sm-2">
+                    <label class="text-semibold">&nbsp;</label>
+                    <input type="number" class="form-control" min="1900" max="2099" step="1" formControlName="end_year"/>	
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-sm-12">
+                    <label class="text-semibold">Description</label>
+                    <textarea name="description" class="form-control mb-15" rows="3"  placeholder="Type your project description here" formControlName="description"></textarea>
+                  </div>  
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-info" [disabled]="!addProjectForm.valid || isAddProjectFormSubmitted">
+                <span *ngIf="!isAddProjectFormSubmitted;else show_saving_changes">
+                  Save Changes
+                </span>
+                <ng-template #show_saving_changes>Saving Changes. Please wait...</ng-template>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- /add project modal -->
+        
+    
+    <!-- update project modal -->
+    <div id="modal_theme_update_project" class="modal fade">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <form [formGroup]="updateProjectForm" (ngSubmit)="updateProject(updateProjectForm.value)">
+            <input type="hidden" formControlName="projID"/>
+            <input type="hidden" formControlName="created_date"/>
+            <div class="modal-header bg-info">
+              <button id="updateProjectModalDismissButton" type="button" class="close" data-dismiss="modal">&times;</button>
+              <h6 class="modal-title">Edit Project</h6>
+            </div>
+      
+            <div class="modal-body">
+                <span *ngIf="error" class="help-block text-danger"><i class="icon-cancel-circle2 position-left"></i>{{error}}</span>
+                <span *ngIf="message" class="help-block text-success"><i class="icon-checkmark position-left"></i>{{message}}</span>
+                <div class="form-group">
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <label class="text-semibold">Project Name</label>
+                      <input type="text" class="form-control" formControlName="project_name">
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                          <label class="text-semibold">Project URL</label>
+                          <input type="text" class="form-control" formControlName="project_url">
+                      </div>				
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="row">
+                    <div class="col-sm-4">
+                      <label class="text-semibold">From</label>
+                      <select class="form-control" formControlName="start_month">
+                        <option *ngFor="let month of monthList" [selected]="month == startMonth">{{month}}</option>
+                      </select>
+                    </div>
+                    <div class="col-sm-2">
+                      <label class="text-semibold">&nbsp;</label>
+                      <input type="number" class="form-control" min="1900" max="2099" step="1" formControlName="start_year"/>
+                    </div>
+                    <div class="col-sm-4">
+                      <label class="text-semibold">To</label>
+                      <select class="form-control" formControlName="end_month">
+                        <option *ngFor="let month of monthList" [selected]="month == endMonth">{{month}}</option>
+                      </select>
+                    </div>
+                    <div class="col-sm-2">
+                      <label class="text-semibold">&nbsp;</label>
+                      <input type="number" class="form-control" min="1900" max="2099" step="1" formControlName="end_year"/>	
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <label class="text-semibold">Description</label>
+                      <textarea name="description" class="form-control mb-15" rows="3"  placeholder="Type your project description here" formControlName="description"></textarea>
+                    </div>  
+                  </div>
+                </div>
+              </div>
+      
+            <div class="modal-footer">
+              <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-info" [disabled]="!updateProjectForm.valid || isUpdateProjectFormSubmitted">
+                <span *ngIf="!isUpdateProjectFormSubmitted;else show_updating_changes">
+                  Save Changes
+                </span>
+                <ng-template #show_updating_changes>Saving Changes. Please wait...</ng-template>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- /update project modal -->
+    
+    <!-- delete project modal -->
+    <div id="modal_theme_delete_project" class="modal fade">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <form [formGroup]="deleteProjectForm" (ngSubmit)="deleteProject(deleteProjectForm.value)">
+            <input type="hidden" formControlName="projID"/>
+            <div class="modal-header bg-info">
+              <button id="deleteProjectModalDismissButton" type="button" class="close" data-dismiss="modal">&times;</button>
+              <h6 class="modal-title">Delete Project</h6>
+            </div>
+        
+            <div class="modal-body">
+              <span *ngIf="error" class="help-block text-danger"><i class="icon-cancel-circle2 position-left"></i>{{error}}</span>
+              <span *ngIf="message" class="help-block text-success"><i class="icon-checkmark position-left"></i>{{message}}</span>
+              <h5>Are you sure you want to delete this project ?</h5>
+            </div>
+        
+            <div class="modal-footer">
+              <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-info" [disabled]="!deleteProjectForm.valid || isDeleteProjectFormSubmitted">
+                <span *ngIf="!isDeleteProjectFormSubmitted;else show_deleting">
+                  Delete
+                </span>
+                <ng-template #show_deleting>Deleting. Please wait...</ng-template>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- /delete project modal -->
