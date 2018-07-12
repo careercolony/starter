@@ -114,7 +114,7 @@ export class StarterHomeComponent implements OnInit {
     this.apiService.login(data).subscribe(
       (response) => {
         this.loginErrors = '';
-        if (response.value.length === 1) {
+        if (response.value.length >= 1) {
           response = response.value[0];
           this.storageService.store('firstname', response.firstname);
           this.storageService.store('lastname', response.lastname);

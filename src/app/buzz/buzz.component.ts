@@ -43,7 +43,16 @@ import { first } from 'rxjs/operator/first';
 export class BuzzComponent implements OnInit {
 
 @Input() myval
- result
+result : any = {
+  title: '',
+  description: '',
+  type: '',
+  url: '',
+  provider_url: '',
+  provider_name: '',
+  thumbnail_url: '',
+  html:''
+}
  title
  //url =''
  base_url = 'https://api.embedly.com/1/oembed?'
@@ -93,10 +102,7 @@ isShareDefault: boolean = true
     private imageService: ImageUploadService,
     private http: HttpClient
   ) { 
-    this.addPostForm = formBuilder.group({
-      memberID: [null, Validators.required],
-      title: [null]
-    });
+    
 
   }
 
@@ -104,6 +110,11 @@ isShareDefault: boolean = true
     this.imageUrl = this.defaultAvatar;
   } 
   ngOnInit() {
+    this.addPostForm = new FormGroup({
+      memberID: new FormControl(''),
+      title: new FormControl('')
+    });
+
     this.memberID = this.storageService.get('memberID');
     this.fname = this.storageService.get('firstname');
     this.apiService.getProfileAvatar(this.memberID)
