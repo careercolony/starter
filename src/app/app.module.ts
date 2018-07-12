@@ -51,6 +51,7 @@ import { RelativeTimePipe } from './app-services/relative-time.pipe';
 import { CapitalizePipe } from './app-services/capitalize.pipe';
 import { ProfileImageComponent } from './profile-image/profile-image.component';
 import { AnimationComponent } from './animation/animation.component';
+import { ArticlesComponent } from './articles/articles.component';
 
 
 @NgModule({
@@ -83,6 +84,7 @@ import { AnimationComponent } from './animation/animation.component';
     ProfileImageComponent,
     Slim,
     AnimationComponent,
+    ArticlesComponent,
     
   ],
   imports: [
@@ -99,6 +101,7 @@ import { AnimationComponent } from './animation/animation.component';
       {path: 'signup', component: StarterSignupComponent},
       {path: 'login', component: StarterLoginComponent},
       {path: 'interest', component: StarterInterestComponent},
+      {path: 'articles', component: ArticlesComponent},
       {path: 'logout', component: StarterLogoutComponent},
       {path: 'profile', component: ProfileComponent, canActivate: [AuthGuardService],
         children: [

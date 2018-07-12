@@ -1,0 +1,203 @@
+	<!-- Page container -->
+	<div class="page-container" @page @imganimate>
+
+    <!-- Page content -->
+    <div class="page-content">
+
+      <!-- Main content -->
+      <div class="content-wrapper">
+
+
+        <!-- User profile -->
+        <div class="row">
+          <div class="col-lg-9">
+      
+
+        <!-- Course overview -->
+        <div class="panel panel-white">
+            <div class="panel-heading">
+              <h6 class="panel-title text-semibold">Publish articles </h6>
+  
+              <div class="heading-elements">
+                <ul class="list-inline list-inline-separate heading-text">
+                  <li><span class="text-semibold">Drafts(5)</span></li>
+                  <li>
+                    
+                    <a href="#"><span class="position-right">Add Cover</span></a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+  
+            <div class="editor">
+              
+              <div class="panel-body" >
+                <div class="row">
+						
+                  <div class="col-md-12">
+                      <div class="profile-cover-img" style="background-image: url(assets/images/sample-logos/placeholder-image3.png); height:250px; position:relative; top:-20px ">
+                        <img  [src]='defaultImage' class="img-responsive" />
+                        <div class="add_cover" style="position: relative; top:50px; left:-30px; float: right;"><button class="btn btn-info btn-labeled btn-labeled-right" (click) = "Image.click()"><i class=""></i>Add cover <b><i class="icon-plus2"></i></b></button></div>
+                      </div>  
+                  </div>
+                  <form #imageForm =ngForm (ngSubmit) = "onSubmit(memberID, title, image)" >
+                    <div class="form-group">
+                        <input type="text" #title ngModel name="title" id="title" class="form-control" />
+                    </div>
+                    <input type="text" #memberID ngModel name="memberID" id="memberID" class="form-control" />
+                    <div class="form-group">
+                        <input style="display:none" type="file" #Image accept="file_extension|audio/*|video/*|image/*|media_type" (change)=handleFileInput($event.target.files) class="form-control" />
+                    </div>
+                    
+                    <div class="row">
+                      <div class="col-xs-12">
+                          <img [src]='defaultImage' class="img-responsive" />
+                      </div>
+  
+                      <div class="col-xs-6 text-right">
+                        <input type="submit" value="Submitt"> 
+                        <button type="button" class="btn btn-primary btn-labeled btn-labeled-right">Share <b><i class="icon-circle-right2"></i></b></button>
+                      </div>
+                    </div>
+                  </form>
+      
+                  <form #imageForm =ngForm (ngSubmit) = "onSubmitArticle(memberID,title, description, provider_name, provider_url, type, url, html, image)">
+                   
+                    <input type="text" #memberID ngModel name="memberID" id="memberID" class="form-control" />
+                    <input type="text" #provider_name ngModel name="provider_name" id="provider_name" class="form-control" />
+                    <input type="text" #provider_url ngModel name="provider_url" id="provider_url" class="form-control" />
+                    <input type="text" #type ngModel name="type" id="type" class="form-control" />
+                    <input type="text" #url ngModel name="title" id="url" class="form-control" />
+                    <input type="text" #html ngModel name="html" id="html" class="form-control" />
+                   
+                    <input type="text" #title ngModel name="title" id="title" class="form-control" />
+
+                  <div class="col-md-8 col-md-offset-2">
+                    
+                    <input type="text" #description ngModel name="description" id="description" class="form-control" />
+                          <div class="form-group">
+                              <input type="text" #title ngModel name="title" id="title" class="form-control" />
+                          </div>
+                          <input type="hidden" #memberID ngModel name="memberID" id="memberID" class="form-control" />
+                          <div class="form-group">
+                              <input style="display:none" type="file" #Image accept="image/*" (change)=handleFileInput($event.target.files) class="form-control" />
+                          </div>
+                          <div class="form-group">
+                              <textarea required maxlength="250" #description ngModel name="description" id="#description"  class="form-control mb-15 wysihtml5 wysihtml5-min" rows="6" cols="1" placeholder="What's on your mind?"></textarea>
+                              <span *ngIf="description.touched && description.invalid" class="help-block text-danger"> 
+                                <span *ngIf="description.errors.required" class="help-block text-danger"> This field is required</span>
+                                <span *ngIf="description.errors.maxlength" class="help-block text-danger"> Maximum charater is 200</span>
+                              </span>
+                          </div> 
+                          
+                          <div class="row">
+        
+                            <div class="col-xs-6 text-right">
+                              <input type="submit" class="btn btn-primary" value="Publish"> 
+                              
+                            </div>
+                          </div>
+                          
+      
+                  </div>
+                </form>
+              </div>
+            </div>
+
+            </div>
+          </div>
+          <!-- /course overview -->
+
+      </div>
+
+
+      
+
+
+          
+          
+            <div class="col-lg-3">
+      
+
+            
+            <!-- articles -->
+            <div class="panel panel-flat">
+              <div class="panel-heading border-bottom">
+                <h6 class="panel-title">Recent articles</h6>
+                <div class="heading-elements">
+                  <span class="badge badge-success heading-text">+32</span>
+                </div>
+              </div>
+
+              
+              <ul class="media-list media-list-linked pb-5">
+                
+                <li class="media">
+                  <a href="#" class="media-link">
+                
+                    <div class="media-body">
+                      <span class="media-heading text-semibold">Javascript for beginners</span>
+                      <span class="media-annotation">(200 views)</span>
+                    </div>
+                    <div class="media-right media-middle">
+                      
+                    </div>
+                  </a>
+                </li>
+
+                <li class="media">
+                  <a href="#" class="media-link">
+                
+                    <div class="media-body">
+                      <span class="media-heading text-semibold">Ways to Find the Nelson Mandela in You</span>
+                      <span class="media-annotation">(10 views)</span>
+                    </div>
+                    <div class="media-right media-middle">
+                      
+                    </div>
+                  </a>
+                </li>
+
+                <li class="media">
+                  <a href="#" class="media-link">
+                
+                    <div class="media-body">
+                      <span class="media-heading text-semibold">How to manage cultural change while adopting DevOps</span>
+                      <span class="media-annotation">(35560 views)</span>
+                    </div>
+                    <div class="media-right media-middle">
+                      
+                    </div>
+                  </a>
+                </li>
+
+                <li class="media">
+                  <a href="#" class="media-link">
+                
+                    <div class="media-body">
+                      <span class="media-heading text-semibold">Field Data Collection Made Easy with Collect</span>
+                      <span class="media-annotation">(2003 views)</span>
+                    </div>
+                    <div class="media-right media-middle">
+                      
+                    </div>
+                  </a>
+           
+              </ul>
+            </div>
+            <!-- /connections -->
+
+            <img src="assets/images/sample-logos/banner-1.jpg" class="" alt="">
+
+          </div>
+        </div>
+        <!-- /user profile -->
+
+      </div>
+      <!-- /main content -->
+
+    </div>
+    <!-- /page content -->
+
+  </div>
+  <!-- /page container -->
