@@ -160,24 +160,7 @@ isShareDefault: boolean = true
     reader.readAsDataURL(this.fileToUpload);
       console.log(this.fileToUpload)
   }
-/** 
-  onSubmitPost(memberID,title, description, firstname, lastname, provider_name, provider_url, type, url, image){
-    this.imageService.postFile(memberID.value,title.value, description.value, firstname.value, lastname.value, provider_name.value, provider_url.value, type.value, url.value, this.fileToUpload )
-    .subscribe( data =>{
-      console.log(data);
-      memberID.value = null
-      title.value = null
-      description.value = null
-      image.value = null
-      firstname.value = null
-      lastname.value = null
-      provider_name.value = null
-      provider_url.value = null
-      type.value = null
 
-    })
-  }
-*/
 
 
   onSubmitArticle(memberID,title, description, provider_name, provider_url, type, url, html, image){

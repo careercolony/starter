@@ -10,7 +10,7 @@ export class ImageUploadService {
     //const endpoint ='http://209.97.132.48:8125/api/upload_image'
     const endpoint ='http://localhost:8098/newuser/upload/file'
     const formData: FormData = new FormData()
-    formData.append('file', fileToUpload, fileToUpload.name)
+    formData.append('Image', fileToUpload, fileToUpload.name)
     formData.append('title', title) ;
     formData.append('description', description) ;
     formData.append('memberID', memberID) ;
@@ -24,6 +24,17 @@ export class ImageUploadService {
 
     
     return this.http.post(endpoint, formData);
+  }
+
+  postFile(memberID:string, title: string, fileToUpload: File){
+    //const endpoint ='http://209.97.132.48:8125/api/upload_image'
+    const endpoint ='http://localhost:8098/newuser/upload/file'
+    const formData: FormData = new FormData()
+    formData.append('file', fileToUpload, fileToUpload.name)
+    formData.append('title', title) ;
+    formData.append('memberID', memberID) ;
+    return this.http.post(endpoint, formData);
+    
   }
 
   
