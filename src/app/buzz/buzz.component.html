@@ -276,7 +276,8 @@
                                                     </div>
 
                                                     <div class="tab-pane" id="bottom-tab2">
-                                                        <form #addPostForm=ngForm (ngSubmit)="addPost(addPostForm.value)">
+                                                        <!-- <form [formGroup]="addPostForm" (ngSubmit)="addPost()"> -->
+                                                        <form>
                                                             <div class="form-group has-feedback has-feedback-left">
                                                                 <input type="url" (keyup)="onPaste($event.target.value)" class="form-control" placeholder="http://">
 
@@ -292,14 +293,14 @@
 
                                                             </div>
 
-                                                            <input type="text" #title ngModel name="title" id="title" [(ngModel)]="result.title" class="form-control" />
-                                                            <input type="text" #description ngModel name="description" id="description" [(ngModel)]="result.description" class="form-control" placeholder="">
-                                                            <input type="text" #post_type ngModel name="post_type" id="post_type" [(ngModel)]="result.type" class="form-control" placeholder="">
-                                                            <input type="text" #post_url ngModel name="post_url" id="post_url" [(ngModel)]="result.url" class="form-control" placeholder="">
-                                                            <input type="text" #provider_url ngModel name="provider_url" id="provider_url" [(ngModel)]="result.provider_url" class="form-control" placeholder="">
-                                                            <input type="text" #provider_name ngModel name="provider_name" id="provider_name" [(ngModel)]="result.provider_name" class="form-control" placeholder="">
-                                                            <input type="text" #thumbnail_url ngModel name="thumbnail_url" id="thumbnail_url" [(ngModel)]="result.thumbnail_url" class="form-control" placeholder="">
-                                                            <!-- <input type="text" #html ngModel name="html" id="html" [(ngModel)]="result.html" class="form-control" placeholder=""> -->
+                                                            <!-- <input type="text" formControlName="title" id="title" [(ngModel)]="result.title" class="form-control" />
+                                                            <input type="text" formControlName="description" id="description" [(ngModel)]="result.description" class="form-control">
+                                                            <input type="text" formControlName="post_type" id="post_type" [(ngModel)]="result.type" class="form-control">
+                                                            <input type="text" formControlName="post_url" id="post_url" [(ngModel)]="result.url" class="form-control">
+                                                            <input type="text" formControlName="provider_url" id="provider_url" [(ngModel)]="result.provider_url" class="form-control">
+                                                            <input type="text" formControlName="provider_name" id="provider_name" [(ngModel)]="result.provider_name" class="form-control">
+                                                            <input type="text" formControlName="thumbnail_url" id="thumbnail_url" [(ngModel)]="result.thumbnail_url" class="form-control">
+                                                            <input type="text" formControlName="html" [(ngModel)]="result.html" class="form-control"> -->
 
 
 
@@ -323,14 +324,15 @@
 
 
 
-                                                        <form #imageForm=ngForm [formGroup]="addPostForm" (ngSubmit)="onSubmit(memberID, title, image)">
-
+                                                        <form [formGroup]="imageForm" (ngSubmit)="onImageFormSubmit()">
                                                             <div class="form-group">
-                                                                <input type="text" #title formControlName="title" id="title" class="form-control" />
+                                                                <input type="text" formControlName="title" class="form-control" />
                                                             </div>
-                                                            <input type="text" #memberID formControlName="memberID" id="memberID" class="form-control" />
                                                             <div class="form-group">
-                                                                <input style="display:none" type="file" #Image accept="file_extension|audio/*|video/*|image/*|media_type" (change)=handleFileInput($event.target.files) class="form-control" />
+                                                                <input type="text" formControlName="memberID" class="form-control" />
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <input style="display:none" type="file" formControlName="image" accept="file_extension|audio/*|video/*|image/*|media_type" (change)=handleFileInput($event.target.files) class="form-control" />
                                                             </div>
 
                                                             <div class="row">
@@ -345,7 +347,7 @@
                                                             </div>
                                                         </form>
 
-                                                        <form [formGroup]="loginForm" (ngSubmit)="doLogin($event)">
+                                                        <form [formGroup]="loginForm" (ngSubmit)="doLogin()">
 
                                                             <div id="my-snippet" class="slim" style="width:100%">
                                                                 <input type="file" id="myCropper" />
@@ -740,7 +742,8 @@
 
                     </div>
 
-                    <form #imageForm=ngForm (ngSubmit)="addPost(memberID,title, description, image)">
+                    <!-- <form #imageForm=ngForm (ngSubmit)="addPost(memberID,title, description, image)"> -->
+                    <form>
 
 
                         <div class="col-md-6 col-md-offset-3">
