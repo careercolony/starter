@@ -30,7 +30,7 @@
                     </div>
 
                     <div class="panel no-border-top no-border-radius-top">
-                        <div class="table-responsive">
+                        <div class="table-responsive" style="overflow-x: hidden;">
                             <table class="table text-nowrap">
 
                                 <tbody>
@@ -276,8 +276,7 @@
                                                     </div>
 
                                                     <div class="tab-pane" id="bottom-tab2">
-                                                        <!-- <form [formGroup]="addPostForm" (ngSubmit)="addPost()"> -->
-                                                        <form>
+                                                        <form [formGroup]="addPostForm" (ngSubmit)="addPost()">
                                                             <div class="form-group has-feedback has-feedback-left">
                                                                 <input type="url" (keyup)="onPaste($event.target.value)" class="form-control" placeholder="http://">
 
@@ -293,14 +292,14 @@
 
                                                             </div>
 
-                                                            <!-- <input type="text" formControlName="title" id="title" [(ngModel)]="result.title" class="form-control" />
+                                                            <input type="text" formControlName="title" id="title" [(ngModel)]="result.title" class="form-control" />
                                                             <input type="text" formControlName="description" id="description" [(ngModel)]="result.description" class="form-control">
                                                             <input type="text" formControlName="post_type" id="post_type" [(ngModel)]="result.type" class="form-control">
                                                             <input type="text" formControlName="post_url" id="post_url" [(ngModel)]="result.url" class="form-control">
                                                             <input type="text" formControlName="provider_url" id="provider_url" [(ngModel)]="result.provider_url" class="form-control">
                                                             <input type="text" formControlName="provider_name" id="provider_name" [(ngModel)]="result.provider_name" class="form-control">
                                                             <input type="text" formControlName="thumbnail_url" id="thumbnail_url" [(ngModel)]="result.thumbnail_url" class="form-control">
-                                                            <input type="text" formControlName="html" [(ngModel)]="result.html" class="form-control"> -->
+                                                            <input type="text" formControlName="html" [(ngModel)]="result.html" class="form-control">
 
 
 
