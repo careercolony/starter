@@ -43,11 +43,11 @@ import { first } from 'rxjs/operator/first';
 export class BuzzComponent implements OnInit {
 
 @Input() myval
- result
- title
+
+title
  //url =''
- base_url = 'https://api.embedly.com/1/oembed?'
- wee: any;
+base_url = 'https://api.embedly.com/1/oembed?'
+wee: any;
 
 defaultImage: string = ''
 fileToUpload: File = null
@@ -57,7 +57,16 @@ isSharePhoto: boolean = false
 isShareVideo: boolean = false
 isShareDefault: boolean = true
  
-
+result : any = {
+  title: '',
+  description: '',
+  type: '',
+  url: '',
+  provider_url: '',
+  provider_name: '',
+  thumbnail_url: '',
+  html: ''
+}
 
   /*
   userDetails: any[]
@@ -76,14 +85,15 @@ isShareDefault: boolean = true
   */
   
   private memberID;
-  private userDetails
+  private userDetails = null;
   private fname
   private addPostForm: FormGroup;
-
+  private imageForm: FormGroup;
+  private loginForm: FormGroup;
 
   private error;
   private post_result  
-  public imageUrl = "assets/images/";
+  public  imageUrl = "assets/images/";
   private defaultAvatar = "assets/images/avatar-collection/009-user-1.png";
   
   constructor(
@@ -94,8 +104,22 @@ isShareDefault: boolean = true
     private http: HttpClient
   ) { 
     this.addPostForm = formBuilder.group({
-      memberID: [null, Validators.required],
-      title: [null]
+      title: [null],
+      description: [null],
+      post_type: [null],
+      post_url: [null],
+      provider_url: [null],
+      provider_name: [null],
+      thumbnail_url: [null],
+      html: [null]
+    });
+    this.imageForm = formBuilder.group({
+      memberID: [null,Validators.required],
+      title: [null],
+      image: [null]
+    });
+    this.loginForm = formBuilder.group({
+      post_image: [null],
     });
 
   }
@@ -108,7 +132,10 @@ isShareDefault: boolean = true
     this.fname = this.storageService.get('firstname');
     this.apiService.getProfileAvatar(this.memberID)
       .subscribe(
-        (response) => {},
+        (response) => {
+          console.log("getProfileAvatar")
+          console.log(response)
+        },
         (error) => {}
       );
     this.apiService.getProfileBackground(this.memberID)
@@ -130,6 +157,7 @@ isShareDefault: boolean = true
       this.apiService.getUserdetails(this.memberID)
       .subscribe(
         (response) => {
+          console.log("User details")
           console.log(response)
           this.userDetails = response[0]
         },
@@ -179,8 +207,8 @@ isShareDefault: boolean = true
 
 
 
-  public addPost(data) {
-    
+  public addPost() {
+    let data = this.addPostForm.value;    
     data['post_date'] = new Date().toUTCString();
     data['memberID'] = this.storageService.get('memberID');
     this.apiService.addPost(data).subscribe(
@@ -206,5 +234,12 @@ isShareDefault: boolean = true
         }
       }
     );
+  }
+
+  onImageFormSubmit() {
+
+  }
+  doLogin() {
+    
   }
 }
