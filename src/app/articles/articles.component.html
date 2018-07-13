@@ -20,7 +20,7 @@
   
               <div class="heading-elements">
                 <ul class="list-inline list-inline-separate heading-text">
-                  <li><span class="text-semibold">Drafts(5)</span></li>
+                  <li><span class="text-semibold">Drafts(0)</span></li>
                   <li>
                     
                     <a href="#"><span class="position-right">Add Cover</span></a>
@@ -40,26 +40,7 @@
                         <div class="add_cover" style="position: relative; top:50px; left:-30px; float: right;"><button class="btn btn-info btn-labeled btn-labeled-right" (click) = "Image.click()"><i class=""></i>Add cover <b><i class="icon-plus2"></i></b></button></div>
                       </div>  
                   </div>
-                  <form #imageForm =ngForm (ngSubmit) = "onSubmit(memberID, title, image)" >
-                    <div class="form-group">
-                        <input type="text" #title ngModel name="title" id="title" class="form-control" />
-                    </div>
-                    <input type="text" #memberID ngModel name="memberID" id="memberID" class="form-control" />
-                    <div class="form-group">
-                        <input style="display:none" type="file" #Image accept="file_extension|audio/*|video/*|image/*|media_type" (change)=handleFileInput($event.target.files) class="form-control" />
-                    </div>
-                    
-                    <div class="row">
-                      <div class="col-xs-12">
-                          <img [src]='defaultImage' class="img-responsive" />
-                      </div>
-  
-                      <div class="col-xs-6 text-right">
-                        <input type="submit" value="Submitt"> 
-                        <button type="button" class="btn btn-primary btn-labeled btn-labeled-right">Share <b><i class="icon-circle-right2"></i></b></button>
-                      </div>
-                    </div>
-                  </form>
+                 
       
                   <form #imageForm =ngForm (ngSubmit) = "onSubmitArticle(memberID,title, description, provider_name, provider_url, type, url, html, image)">
                    

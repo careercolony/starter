@@ -236,7 +236,7 @@ const API_CONFIG = {
   },
   getProfileAvatar: {
     baseUrl: 'http://178.62.74.44:8087',
-    endpoint: '/get-avatar',
+    endpoint: '/get-avatar/memberID',
     method: 'GET'
   },
   updateProfileAvatar: {
@@ -245,8 +245,8 @@ const API_CONFIG = {
     method: 'PUT'
   },
   getProfileBackground: {
-    baseUrl: 'http://34.207.126.43',
-    endpoint: '/get_profile_bg',
+    baseUrl: 'http://178.62.74.44:8087',
+    endpoint: '/get_profile_bg/memberID',
     method: 'GET'
   },
   updateProfileBackground: {
@@ -255,7 +255,7 @@ const API_CONFIG = {
     method: 'PUT'
   }, 
   getMyFriends: {
-    baseUrl: 'http://34.207.126.43',
+    baseUrl: 'http://178.62.74.44:8086',
     endpoint: '/get-my-friends/memberID',
     method: 'GET'
   },
