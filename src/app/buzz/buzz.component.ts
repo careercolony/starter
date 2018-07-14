@@ -95,6 +95,8 @@ result : any = {
   private post_result  
   public  imageUrl = "assets/images/";
   private defaultAvatar = "assets/images/avatar-collection/009-user-1.png";
+  private peoplemayknow : any;
+  private friendViewmode : boolean = false;
   
   constructor(
     private formBuilder: FormBuilder,
@@ -133,8 +135,6 @@ result : any = {
     this.apiService.getProfileAvatar(this.memberID)
       .subscribe(
         (response) => {
-          console.log("getProfileAvatar")
-          console.log(response)
         },
         (error) => {}
       );
@@ -146,10 +146,40 @@ result : any = {
         (error) => {}
       );
 
+      this.peoplemayknow = [];
+
       this.apiService.getMyFriends(this.memberID)
       .subscribe(
         (response) => {
-          console.log(response)
+          console.log("friends")
+          response.forEach(friend => {
+            this.apiService.getMyFriends(friend.memberID)
+            .subscribe(
+              (res_friends) => {
+                console.log(res_friends)
+                res_friends.forEach(element => {
+                  if(element.memberID != this.memberID) {
+                    let people = {name : friend.firstname + ' ' + friend.lastname, avatar : this.defaultAvatar, position: ''};
+                  //get avatar
+                    this.apiService.getProfileAvatar(element.memberID)
+                    .subscribe(
+                      (res_avatar) => {
+                        // add avatar here
+                      }
+                    );
+                    //get detail for job
+                    this.apiService.getUserdetails(element.memberID)
+                    .subscribe(
+                      (res_detail) => {
+                        people.position = res_detail.current_position;
+                        this.peoplemayknow.push(people);
+                      }
+                    );
+                  }
+                });
+              });                  
+          });
+          
         },
         (error) => {}
       );
@@ -157,8 +187,6 @@ result : any = {
       this.apiService.getUserdetails(this.memberID)
       .subscribe(
         (response) => {
-          console.log("User details")
-          console.log(response)
           this.userDetails = response[0]
         },
         (error) => {}
@@ -241,5 +269,9 @@ result : any = {
   }
   doLogin() {
     
+  }
+
+  viewMoreFriends() {
+    this.friendViewmode = true;
   }
 }
