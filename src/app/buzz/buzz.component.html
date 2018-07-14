@@ -624,55 +624,30 @@
                             <span>People you may know</span>
                         </div>
 
+                        <div *ngIf="peoplemayknow.length > 0">
+                            <ul class="media-list media-list-linked pb-5">
 
-                        <ul class="media-list media-list-linked pb-5">
+                                <li *ngFor="let people of peoplemayknow; let i = index;" class="media">
+                                    <a *ngIf="friendViewmode === true || (friendViewmode == false && i < 3)" href="#" class="media-link">
+                                        <div class="media-left"><img [src]="people.avatar" class="img-circle img-md" alt=""></div>
+                                        <div class="media-body">
+                                            <span class="media-heading text-semibold">{{people.name}}</span>
+                                            <span class="media-annotation">{{people.position}}</span>
+                                        </div>
+                                        <div class="media-right media-middle">
+                                            <span class="status-mark bg-success"></span>
+                                        </div>
+                                    </a>
+                                </li>
 
-                            <li class="media">
-                                <a href="#" class="media-link">
-                                    <div class="media-left"><img src="assets/images/16.jpg" class="img-circle img-md" alt=""></div>
-                                    <div class="media-body">
-                                        <span class="media-heading text-semibold">James Alexander</span>
-                                        <span class="media-annotation">UI/UX expert</span>
-                                    </div>
-                                    <div class="media-right media-middle">
-                                        <span class="status-mark bg-success"></span>
-                                    </div>
-                                </a>
-                            </li>
-
-                            <li class="media">
-                                <a href="#" class="media-link">
-                                    <div class="media-left"><img src="assets/images/6.jpg" class="img-circle img-md" alt=""></div>
-                                    <div class="media-body">
-                                        <span class="media-heading text-semibold">Jeremy Victorino</span>
-                                        <span class="media-annotation">Senior designer</span>
-                                    </div>
-                                    <div class="media-right media-middle">
-                                        <span class="status-mark bg-grey-300"></span>
-                                    </div>
-                                </a>
-                            </li>
-
-                            <li class="media">
-                                <a href="#" class="media-link">
-                                    <div class="media-left"><img src="assets/images/5863c7afb5bcb_black-woman-thinking.-pf.jpg" class="img-circle img-md" alt=""></div>
-                                    <div class="media-body">
-                                        <div class="media-heading"><span class="text-semibold">Jordana Mills</span></div>
-                                        <span class="text-muted">Sales consultant</span>
-                                    </div>
-                                    <div class="media-right media-middle">
-                                        <span class="status-mark bg-grey-300"></span>
-                                    </div>
-                                </a>
-                            </li>
-
-
-
-
-                        </ul>
-                        <div class="panel-footer no-padding">
-                            <a href="#" class="btn btn-default btn-block no-border">See more people you know</a>
+                            </ul>
+                            <div *ngIf="peoplemayknow.length > 3 && peoplemayknow === false" class="panel-footer no-padding">
+                                <button type="button" (click)="viewMoreFriends()" class="btn btn-default btn-block no-border">See more people you know</button>
+                            </div>
                         </div>
+
+
+
                     </div>
 
                     <!-- /connections -->
