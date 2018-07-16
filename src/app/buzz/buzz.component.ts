@@ -90,6 +90,7 @@ result : any = {
   private addPostForm: FormGroup;
   private imageForm: FormGroup;
   private loginForm: FormGroup;
+  private addMessageForm: FormGroup;
 
   private error;
   private post_result  
@@ -123,6 +124,9 @@ result : any = {
     this.loginForm = formBuilder.group({
       post_image: [null],
     });
+    this.addMessageForm = formBuilder.group({
+      message: [null],
+    });
 
   }
 
@@ -151,12 +155,10 @@ result : any = {
       this.apiService.getMyFriends(this.memberID)
       .subscribe(
         (response) => {
-          console.log("friends")
           response.forEach(friend => {
             this.apiService.getMyFriends(friend.memberID)
             .subscribe(
               (res_friends) => {
-                console.log(res_friends)
                 res_friends.forEach(element => {
                   if(element.memberID != this.memberID) {
                     let people = {name : friend.firstname + ' ' + friend.lastname, avatar : this.defaultAvatar, position: ''};
@@ -264,6 +266,9 @@ result : any = {
     );
   }
 
+  addMessage() {
+
+  }
   onImageFormSubmit() {
 
   }
@@ -274,4 +279,5 @@ result : any = {
   viewMoreFriends() {
     this.friendViewmode = true;
   }
+
 }
