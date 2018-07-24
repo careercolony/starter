@@ -240,10 +240,10 @@ const API_CONFIG = {
     method: 'GET'
   },
   updateProfileAvatar: {
-    // baseUrl: 'http://localhost:8098/newuser/upload',
-    baseUrl: 'http://178.62.74.44:8087/newuser/upload',
-    endpoint: '/update_avatar',
-    method: 'PUT'
+    baseUrl: 'http://localhost:8098',
+    // baseUrl: 'http://178.62.74.44:8087/newuser/upload',
+    endpoint: '/upload/avatar/memberID',
+    method: 'POST'
   },
   getProfileBackground: {
     baseUrl: 'http://178.62.74.44:8087',
@@ -251,8 +251,8 @@ const API_CONFIG = {
     method: 'GET'
   },
   updateProfileBackground: {
-    // baseUrl: 'http://localhost:8098/newuser/upload',
-    baseUrl: 'http://178.62.74.44:8087/newuser/upload',
+    baseUrl: 'http://localhost:8098/newuser/upload',
+    // baseUrl: 'http://178.62.74.44:8087/newuser/upload',
     endpoint: '/update_profile_bg_photo',
     method: 'PUT'
   }, 
@@ -815,7 +815,7 @@ export class ApiService {
   public updateProfileAvatar (data): Observable<any> {
 
     const method = API_CONFIG.updateProfileAvatar.method;
-    const url = PREFIX_URL + API_CONFIG.updateProfileAvatar.baseUrl + API_CONFIG.updateProfileAvatar.endpoint;
+    const url = PREFIX_URL + API_CONFIG.updateProfileAvatar.baseUrl + API_CONFIG.updateProfileAvatar.endpoint + '/' + data.memberID;
     return this.composeRequest(method, url, data)
       .map(response => {
         return response.body;

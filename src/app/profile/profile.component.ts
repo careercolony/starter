@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { trigger, state, animate, transition, style, keyframes, query, stagger } from '@angular/animations';
 
 import { ApiService } from './../app-services/api.service';
+import { ImageUploadService } from './../app-services/image-upload.service';
 import { ProfileService } from './../app-services/profile.service';
 import { StorageService } from '../app-services/storage.service';
 
@@ -55,7 +56,8 @@ export class ProfileComponent implements OnInit {
   constructor(
     private profileService: ProfileService,
     private apiService: ApiService,
-    private storageService: StorageService
+    private storageService: StorageService,
+    private imageUploadService: ImageUploadService
   ) {
     this.getExperienceCount();
     this.getSkillCount();
@@ -120,27 +122,40 @@ export class ProfileComponent implements OnInit {
 
   public profileImageSave(data) {
 
-    const body = {
-      memberID: this.storageService.get('memberID'),
-      avatar: '',
-      base64: data.output.image
-    };
-    this.apiService.updateProfileAvatar(body)
-      .subscribe(
-        (response) => {
-          console.log(response);
-        },
-        (error) => {
-          if (error.status === 200 || error.status === 201) {
+    // const body = {
+    //   memberID: this.storageService.get('memberID'),
+    //   title: data.output.name,
+    //   file: data.output
+    // };
+    // this.apiService.updateProfileAvatar(body)
+    //   .subscribe(
+    //     (response) => {
+    //       console.log(response);
+    //     },
+    //     (error) => {
+    //       if (error.status === 200 || error.status === 201) {
 
-          }
+    //       }
+    //     }
+    //   );
+    // return true;
+    let memberID : any = this.storageService.get('memberID');
+    let file : File = data.output;
+    this.imageUploadService.avatar(memberID, file)
+    .subscribe(
+      (response) => {
+        console.log(response);
+      },
+      (error) => {
+        if (error.status === 200 || error.status === 201) {
+
         }
-      );
-    return true;
+      }
+    );
+  return true;
   }
 
   public profileBackgroundSave(data) {
-
 
     const body = {
       memberID: this.storageService.get('memberID'),
