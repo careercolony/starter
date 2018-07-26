@@ -121,7 +121,6 @@ export class ProfileComponent implements OnInit {
   }
 
   public profileImageSave(data) {
-
     // const body = {
     //   memberID: this.storageService.get('memberID'),
     //   title: data.output.name,

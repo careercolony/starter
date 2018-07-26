@@ -117,8 +117,7 @@ result : any = {
       html: [null]
     });
     this.imageForm = formBuilder.group({
-      memberID: [null,Validators.required],
-      title: [null],
+      title: [null,Validators.required],
       image: [null]
     });
     this.loginForm = formBuilder.group({
@@ -139,13 +138,16 @@ result : any = {
     this.apiService.getProfileAvatar(this.memberID)
       .subscribe(
         (response) => {
+          console.log("avatar")
+          console.log(response)
         },
         (error) => {}
       );
     this.apiService.getProfileBackground(this.memberID)
       .subscribe(
         (response) => {
-          
+          console.log("profile background")
+          console.log(response)
         },
         (error) => {}
       );
@@ -272,9 +274,26 @@ result : any = {
 
   addMessage() {
 
+    console.log(this.addMessageForm.value)
+
   }
   onImageFormSubmit() {
+    let title = this.imageForm.value.title
+    let file = this.fileToUpload
 
+    let memberID : any = this.storageService.get('memberID');
+    this.imageService.postFile(memberID, title, file)
+    .subscribe(
+      (response) => {
+        console.log("Image Upload")
+        console.log(response);
+      },
+      (error) => {
+        if (error.status === 200 || error.status === 201) {
+
+        }
+      }
+    );
   }
   doLogin() {
     
