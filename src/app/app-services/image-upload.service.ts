@@ -52,8 +52,8 @@ export class ImageUploadService {
 
 
   avatar(memberID,fileToUpload: File){
-    //const endpoint ='http://209.97.132.48:8125/api/upload_image'
-    const endpoint ='http://localhost:8098/upload/avatar/memberID/'+ memberID
+    const endpoint ='http://165.227.59.197:8098/upload/avatar/memberID/'+ memberID
+    //const endpoint ='http://localhost:8098/upload/avatar/memberID/'+ memberID
     const formData: FormData = new FormData()
     formData.append('file', fileToUpload, fileToUpload.name)
     return this.http.post(endpoint, formData);

@@ -154,29 +154,33 @@ result : any = {
 
       this.apiService.getMyFriends(this.memberID)
       .subscribe(
-        (response) => {
-          response.forEach(friend => {
+        (myfriends) => {
+          myfriends.forEach(friend => {
             this.apiService.getMyFriends(friend.memberID)
             .subscribe(
               (res_friends) => {
                 res_friends.forEach(element => {
                   if(element.memberID != this.memberID) {
-                    let people = {name : friend.firstname + ' ' + friend.lastname, avatar : this.defaultAvatar, position: ''};
-                  //get avatar
-                    this.apiService.getProfileAvatar(element.memberID)
-                    .subscribe(
-                      (res_avatar) => {
-                        // add avatar here
+                    //check is in my friends lists
+                    let infriends = 0;
+                    myfriends.forEach(myfriend => {
+                      if(infriends ==0 &&  myfriend.memberID == element.memberID) {
+                        infriends = 1;
                       }
-                    );
-                    //get detail for job
-                    this.apiService.getUserdetails(element.memberID)
-                    .subscribe(
-                      (res_detail) => {
-                        people.position = res_detail.current_position;
-                        this.peoplemayknow.push(people);
+                    });
+                    if(infriends==0) {
+                      let people = {name : element.firstname + ' ' + element.lastname, avatar : this.defaultAvatar, position: ''};
+                      //get detail for job
+                      this.apiService.getUserdetails(element.memberID)
+                      .subscribe(
+                        (res_detail) => {
+                          console.log(res_detail)
+                          people.position = res_detail.current_position;
+                          if(res_detail.avatar != null) people.avatar = res_detail.avatar;
+                          this.peoplemayknow.push(people);
+                        }
+                      );
                       }
-                    );
                   }
                 });
               });                  
