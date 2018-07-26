@@ -247,8 +247,7 @@
                                                     <li class="active"><a href="#bottom-tab1" data-toggle="tab">Message </a></li>
                                                     <li><a href="#bottom-tab2" data-toggle="tab">Share a Link</a></li>
                                                     <li><a href="#bottom-tab3" data-toggle="tab" (click)="Image.click()">Photo</a></li>
-
-                                                    <li><a href="#bottom-tab4" data-toggle="tab">Video</a></li>
+                                                    <li><a href="#bottom-tab4" data-toggle="tab" (click)="Image.click()">Video</a></li>
                                                     <li><a routerLink="/articles"> Post an article</a></li>
 
                                                 </ul>
@@ -372,9 +371,24 @@
                                                     </div>
 
                                                     <div class="tab-pane" id="bottom-tab4">
-                                                        <div id="my-snippet1" class="slim" style="width:100%">
+                                                        <form [formGroup]="videoForm" (ngSubmit)="onVideoFormSubmit()">
+                                                            <div class="form-group">
+                                                                <input type="text" formControlName="title" class="form-control" placeholder="Please write title" />
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <input style="display:none" type="file" formControlName="video" accept="file_extension|audio/*|video/*|image/*|media_type" (change)=handleFileInput($event.target.files) class="form-control" />
+                                                            </div>
+
+                                                            <div class="row">
+                                                                <div class="col-xs-6 text-right">
+                                                                    <input type="submit" class="btn btn-primary" value="Submitt">
+                                                                    <button type="button" class="btn btn-primary btn-labeled btn-labeled-right">Share <b><i class="icon-circle-right2"></i></b></button>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                        <!-- <div id="my-snippet1" class="slim" style="width:100%">
                                                             <input type="file" id="myCropper1" />
-                                                        </div>
+                                                        </div> -->
                                                     </div>
                                                 </div>
                                             </div>

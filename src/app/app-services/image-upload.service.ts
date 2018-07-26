@@ -45,7 +45,7 @@ export class ImageUploadService {
     const endpoint ='http://165.227.59.197:8098/image/upload/file'
     //const endpoint ='http://localhost:8098/newuser/upload/file/postID/8'
     const formData: FormData = new FormData()
-    formData.append('memberID', memberID) ;
+    formData.append('memberID', memberID)
     formData.append('title', title)
     formData.append('file', fileToUpload, fileToUpload.name)
 
@@ -73,20 +73,24 @@ export class ImageUploadService {
   }
 
 
-  processImage(fileToUpload: File){
+  processImage(memberID:string, title: string, fileToUpload: File){
     //const endpoint ='http://209.97.132.48:8125/api/upload_image'
     const endpoint ='http://localhost:8098/image/upload/file'
     const formData: FormData = new FormData()
+    formData.append('memberID', memberID)
+    formData.append('title', title)
     formData.append('file', fileToUpload, fileToUpload.name)
     return this.http.post(endpoint, formData);
     
   }
 
 
-  processVideo(fileToUpload: File){
-    //const endpoint ='http://209.97.132.48:8125/api/upload_image'
-    const endpoint ='http://localhost:8098/video/upload'
+  processVideo(memberID : string, title: string, fileToUpload: File){
+    const endpoint ='http://165.227.59.197:8098/video/upload/file'
+    //const endpoint ='http://localhost:8098/video/upload'
     const formData: FormData = new FormData()
+    formData.append('memberID', memberID)
+    formData.append('title', title)
     formData.append('file', fileToUpload, fileToUpload.name)
     return this.http.post(endpoint, formData);
     

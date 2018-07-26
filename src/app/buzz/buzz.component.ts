@@ -89,6 +89,7 @@ result : any = {
   private fname
   private addPostForm: FormGroup;
   private imageForm: FormGroup;
+  private videoForm: FormGroup;
   private loginForm: FormGroup;
   private addMessageForm: FormGroup;
 
@@ -119,6 +120,10 @@ result : any = {
     this.imageForm = formBuilder.group({
       title: [null,Validators.required],
       image: [null]
+    });
+    this.videoForm = formBuilder.group({
+      title: [null,Validators.required],
+      video: [null]
     });
     this.loginForm = formBuilder.group({
       post_image: [null],
@@ -282,7 +287,26 @@ result : any = {
     let file = this.fileToUpload
 
     let memberID : any = this.storageService.get('memberID');
-    this.imageService.postFile(memberID, title, file)
+    this.imageService.processImage(memberID, title, file)
+    .subscribe(
+      (response) => {
+        console.log("Image Upload")
+        console.log(response);
+      },
+      (error) => {
+        if (error.status === 200 || error.status === 201) {
+
+        }
+      }
+    );
+  }
+
+  onVideoFormSubmit() {
+    let title = this.videoForm.value.title
+    let file = this.fileToUpload
+
+    let memberID : any = this.storageService.get('memberID');
+    this.imageService.processVideo(memberID, title, file)
     .subscribe(
       (response) => {
         console.log("Image Upload")
